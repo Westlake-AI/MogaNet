@@ -84,7 +84,7 @@ def build_transform(is_train, args):
             print(f"Warping {args.input_size} size input images...")
         else:
             if args.crop_pct is None:
-                args.crop_pct = 224 / 256
+                args.crop_pct = 224 / 248
             size = int(args.input_size / args.crop_pct)
             t.append(
                 # to maintain same ratio w.r.t. 224 images

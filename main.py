@@ -115,7 +115,8 @@ def get_args_parser():
                         help='Training interpolation (random, bilinear, bicubic default: "bicubic")')
 
     # Evaluation parameters
-    parser.add_argument('--crop_pct', type=float, default=None)
+    parser.add_argument('--crop_pct', type=float, default=0.9,
+                        help='Crop scale for CenterCrop in evaluation')
 
     # * Random Erase params
     parser.add_argument('--reprob', type=float, default=0.25, metavar='PCT',

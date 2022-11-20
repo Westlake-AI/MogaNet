@@ -48,14 +48,19 @@ class LayerDecayValueAssigner(object):
         return get_num_layer_for_moganet(var_name)
 
 
-def get_parameter_groups(model, weight_decay=1e-5, skip_list=(), get_num_layer=None, get_layer_scale=None):
+def get_parameter_groups(model,
+                         weight_decay=1e-5,
+                         skip_list=(),
+                         get_num_layer=None,
+                         get_layer_scale=None):
     parameter_group_names = {}
     parameter_group_vars = {}
 
     for name, param in model.named_parameters():
         if not param.requires_grad:
             continue  # frozen weights
-        if len(param.shape) == 1 or name.endswith(".bias") or name in skip_list:
+        if len(param.squeeze().shape) == 1 or \
+            name.endswith(".bias") or name in skip_list:
             group_name = "no_decay"
             this_weight_decay = 0.
         else:
@@ -90,7 +95,12 @@ def get_parameter_groups(model, weight_decay=1e-5, skip_list=(), get_num_layer=N
     return list(parameter_group_vars.values())
 
 
-def create_optimizer(args, model, get_num_layer=None, get_layer_scale=None, filter_bias_and_bn=True, skip_list=None):
+def create_optimizer(args,
+                     model,
+                     get_num_layer=None,
+                     get_layer_scale=None,
+                     filter_bias_and_bn=True,
+                     skip_list=None):
     opt_lower = args.opt.lower()
     weight_decay = args.weight_decay
     # if weight_decay and filter_bias_and_bn:
@@ -100,13 +110,15 @@ def create_optimizer(args, model, get_num_layer=None, get_layer_scale=None, filt
             skip = skip_list
         elif hasattr(model, 'no_weight_decay'):
             skip = model.no_weight_decay()
-        parameters = get_parameter_groups(model, weight_decay, skip, get_num_layer, get_layer_scale)
+        parameters = get_parameter_groups(
+            model, weight_decay, skip, get_num_layer, get_layer_scale)
         weight_decay = 0.
     else:
         parameters = model.parameters()
 
     if 'fused' in opt_lower:
-        assert has_apex and torch.cuda.is_available(), 'APEX and CUDA required for fused optimizers'
+        assert has_apex and torch.cuda.is_available(), \
+            'APEX and CUDA required for fused optimizers'
 
     opt_args = dict(lr=args.lr, weight_decay=weight_decay)
     if hasattr(args, 'opt_eps') and args.opt_eps is not None:
