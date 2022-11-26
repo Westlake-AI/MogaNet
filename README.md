@@ -12,7 +12,7 @@
 This is a PyTorch implementation of **MogaNet** from our paper:
 
 [Efficient Multi-order Gated Aggregation Network](https://arxiv.org/abs/2211.03295)\
-[Siyuan Li](https://lupin1998.github.io/), [Zedong Wang](https://zedongwang.netlify.app/), [Zicheng Liu](https://pone7.github.io/), [Chen Tan](https://chengtan9907.github.io/), [Haitao Lin](https://bird-tao.github.io/), [Di Wu](https://scholar.google.com/citations?user=egz8bGQAAAAJ&hl=zh-CN), [Zhiyuan Chen](https://zyc.ai/), [Jiangbin Zheng](https://scholar.google.com/citations?user=egz8bGQAAAAJ&hl=zh-CN), and [Stan Z. Li](https://scholar.google.com/citations?user=Y-nyLGIAAAAJ&hl=zh-CN). In arXiv, 2022.
+[Siyuan Li](https://lupin1998.github.io/)\*, [Zedong Wang](https://zedongwang.netlify.app/)\*, [Zicheng Liu](https://pone7.github.io/), [Chen Tan](https://chengtan9907.github.io/), [Haitao Lin](https://bird-tao.github.io/), [Di Wu](https://scholar.google.com/citations?user=egz8bGQAAAAJ&hl=zh-CN), [Zhiyuan Chen](https://zyc.ai/), [Jiangbin Zheng](https://scholar.google.com/citations?user=egz8bGQAAAAJ&hl=zh-CN), and [Stan Z. Li](https://scholar.google.com/citations?user=Y-nyLGIAAAAJ&hl=zh-CN)†. In arXiv, 2022.
 
 
 <p align="center">

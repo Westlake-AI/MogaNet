@@ -436,9 +436,9 @@ def main(args):
                 log_writer.update(test_acc5=test_stats['acc5'], head="perf", step=epoch)
                 log_writer.update(test_loss=test_stats['loss'], head="perf", step=epoch)
 
-            log_stats = {**{f'train_{k}': v for k, v in train_stats.items()},
+            log_stats = {'epoch': epoch,
+                         **{f'train_{k}': v for k, v in train_stats.items()},
                          **{f'test_{k}': v for k, v in test_stats.items()},
-                         'epoch': epoch,
                          'n_parameters': n_parameters}
 
             # repeat testing routines for EMA, if ema eval is turned on

@@ -104,8 +104,6 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-bash
-data
 .vscode
 .idea
 
@@ -113,7 +111,11 @@ data
 *.pkl
 *.pkl.json
 *.log.json
+bash
+data
+data_set
 work_dirs/
+workspace/
 tools/exp_bash/
 pretrains
 
@@ -125,3 +127,6 @@ source.sh
 tensorboard.sh
 .DS_Store
 *.json
+
+# temp
+moganet_tiny_sz224_2xb128_accu4_ep300/

@@ -384,14 +384,14 @@ class ConvPatchEmbed(nn.Module):
                  norm_type='BN'):
         super(ConvPatchEmbed, self).__init__()
 
-        self.projection = nn.Sequential(
-            nn.Conv2d(in_channels, embed_dims, kernel_size=kernel_size,
-                stride=stride, padding=kernel_size // 2),
-            build_norm_layer(norm_type, embed_dims),
-        )
+        self.projection = nn.Conv2d(
+            in_channels, embed_dims, kernel_size=kernel_size,
+            stride=stride, padding=kernel_size // 2)
+        self.norm = build_norm_layer(norm_type, embed_dims)
 
     def forward(self, x):
         x = self.projection(x)
+        x = self.norm(x)
         out_size = (x.shape[2], x.shape[3])
         return x, out_size
 
@@ -641,7 +641,7 @@ model_urls = {
 
 @register_model
 def moganet_xtiny(pretrained=False, **kwargs):
-    model = MogaNet(arch='xtiny', **kwargs)
+    model = MogaNet(arch='x-tiny', **kwargs)
     if pretrained:
         url = model_urls['moganet_xtiny_1k']
         checkpoint = torch.hub.load_state_dict_from_url(url=url, map_location="cpu", check_hash=True)
