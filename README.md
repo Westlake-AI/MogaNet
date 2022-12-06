@@ -22,6 +22,23 @@ class="center">
 
 We propose **MogaNet**, a new family of efficient ConvNets, to pursue informative context mining with preferable complexity-performance trade-offs.
 
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#catalog">Catalog</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#training">Training</a></li>
+    <li>
+      <a href="#results-and-pre-trained-models">Results and Pre-trained Models</a>
+      <ul>
+        <li><a href="#imagenet-1k-trained-models">ImageNet-1K trained models</a></li>
+      </ul>
+    </li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#acknowledgement">Acknowledgement</a></li>
+  </ol>
+</details>
+
 ## Catalog
 
 We plan to release implementations of MogaNet in a few months. Please watch us for the latest release. Currently, this repo is reimplemented according to our official implementations in [OpenMixup](https://github.com/Westlake-AI/openmixup/), and we are working on cleaning up experimental results and code implementations.
@@ -33,6 +50,14 @@ We plan to release implementations of MogaNet in a few months. Please watch us f
 - [ ] Image Classification on Google Colab and Web Demo
 
 <!-- ✅ ⬜️  -->
+
+## Installation
+
+Please check [INSTALL.md](INSTALL.md) for installation instructions. 
+
+## Training
+
+See [TRAINING.md](TRAINING.md) for ImageNet-1K training instructions, or refer to our [OpenMixup](https://github.com/Westlake-AI/openmixup/tree/main/configs/classification/imagenet/moganet/) implementations. We have released pre-trained models on [OpenMixup](https://github.com/Westlake-AI/openmixup/tree/main/configs/classification/imagenet/moganet/) in [moganet-in1k-weights](https://github.com/Westlake-AI/openmixup/releases/tag/moganet-in1k-weights).
 
 ## Results and Pre-trained Models
 
@@ -49,21 +74,13 @@ We plan to release implementations of MogaNet in a few months. Please watch us f
 | MogaNet-L | 224x224 | 82.5 | 15.9 | 84.6 | [config](https://github.com/Westlake-AI/openmixup/tree/main/configs/classification/imagenet/moganet/moga_large_sz224_8xb64_accu2_ep300.py) / [script](TRAINING.md) | model / log |
 
 
-## Installation
+## License
 
-Please check [INSTALL.md](INSTALL.md) for installation instructions. 
-
-## Training
-
-See [TRAINING.md](TRAINING.md) for ImageNet-1K training instructions, or refer to our [OpenMixup](https://github.com/Westlake-AI/openmixup/tree/main/configs/classification/imagenet/moganet/) implementations.
+This project is released under the [Apache 2.0 license](LICENSE).
 
 ## Acknowledgement
 
 This repository is built using the [timm](https://github.com/rwightman/pytorch-image-models) library, [DeiT](https://github.com/facebookresearch/deit) and [ConvNeXt](https://github.com/facebookresearch/ConvNeXt) repositories.
-
-## License
-
-This project is released under the [Apache 2.0 license](LICENSE).
 
 ## Citation
 
@@ -77,3 +94,5 @@ If you find this repository helpful, please consider citing:
   volume={abs/2211.03295}
 }
 ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
