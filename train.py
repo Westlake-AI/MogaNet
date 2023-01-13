@@ -103,7 +103,7 @@ parser.add_argument('--initial_checkpoint', default='', type=str, metavar='PATH'
                     help='Initialize model from this checkpoint (default: none)')
 parser.add_argument('--resume', default='', type=str, metavar='PATH',
                     help='Resume full model and optimizer state from checkpoint (default: none)')
-parser.add_argument('--no-resume_opt', action='store_true', default=False,
+parser.add_argument('--no_resume_opt', action='store_true', default=False,
                     help='prevent resume of optimizer state when resuming model')
 parser.add_argument('--num_classes', type=int, default=1000, metavar='N',
                     help='number of label classes (Model default if None)')
