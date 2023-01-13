@@ -114,6 +114,9 @@ venv.bak/
 bash
 data
 data_set
+detection/data
+segmentation/data
+output/
 work_dirs/
 workspace/
 tools/exp_bash/
@@ -129,4 +132,5 @@ tensorboard.sh
 *.json
 
 # temp
-moganet_tiny_sz224_2xb128_accu4_ep300/
+detection
+segmentation

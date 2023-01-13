@@ -4,18 +4,18 @@ We provide ImageNet-1K training commands here. Please check [INSTALL.md](INSTALL
 
 ## ImageNet-1K Training 
 
-Taking MogaNet-T as an example, you can use the following command to run this experiment on a single machine: 
+Taking MogaNet-T as an example, you can use the following command to run this experiment on a single machine (8GPUs): 
 ```
-python -m torch.distributed.launch --nproc_per_node=8 main.py \
+python -m torch.distributed.launch --nproc_per_node=8 train.py \
 --model moganet_tiny --input_size 224 --drop_path 0.1 \
---batch_size 128 --lr 1e-3 --weight_decay 0.04 --update_freq 1 \
---aa rand-m7-mstd0.5-inc1 --mixup 0.1 \
---model_ema false --model_ema_eval false \
---data_path /path/to/imagenet-1k \
---output_dir /path/to/save_results
+--epochs 300 --batch_size 128 --lr 1e-3 --weight_decay 0.04 \
+--aa rand-m7-mstd0.5-inc1 --crop_pct 0.9 --mixup 0.1 \
+--amp --native_amp \
+--data_dir /path/to/imagenet-1k \
+--experiment /path/to/save_results
 ```
 
-- Here, the effective batch size = `--nproc_per_node` * `--batch_size` * `--update_freq`. In the example above, the effective batch size is `8*128*1 = 1024`. Running on one machine, we can increase `update_freq` and reduce `--batch_size` to avoid OOM issues while keeping the total batch size unchanged.
+- Here, the effective batch size = `--nproc_per_node` * `--batch_size`. In the example above, the effective batch size is `8*128 = 1024`. Running on one machine, we can reduce `--batch_size` and use `--amp` to avoid OOM issues while keeping the total batch size unchanged.
 
 To train other MogaNet variants, `--model` and `--drop_path` need to be changed. Examples with single-machine commands are given below:
 
@@ -27,12 +27,13 @@ MogaNet-XT
 Single-machine (8GPUs) with the input size of 224:
 
 ```
-python -m torch.distributed.launch --nproc_per_node=8 main.py \
+python -m torch.distributed.launch --nproc_per_node=8 train.py \
 --model moganet_xtiny --input_size 224 --drop_path 0.05 \
---batch_size 128 --lr 1e-3 --weight_decay 0.03 --update_freq 1 \
---aa rand-m7-mstd0.5-inc1 --mixup 0.1 \
---data_path /path/to/imagenet-1k \
---output_dir /path/to/save_results
+--epochs 300 --batch_size 128 --lr 1e-3 --weight_decay 0.03 \
+--aa rand-m7-mstd0.5-inc1 --crop_pct 0.9 --mixup 0.1 \
+--amp --native_amp \
+--data_dir /path/to/imagenet-1k \
+--experiment /path/to/save_results
 ```
 </details>
 
@@ -43,23 +44,25 @@ MogaNet-Tiny
 Single-machine (8GPUs) with the input size of 224:
 
 ```
-python -m torch.distributed.launch --nproc_per_node=8 main.py \
+python -m torch.distributed.launch --nproc_per_node=8 train.py \
 --model moganet_tiny --input_size 224 --drop_path 0.1 \
---batch_size 128 --lr 1e-3 --weight_decay 0.04 --update_freq 1 \
---aa rand-m7-mstd0.5-inc1 --mixup 0.1 \
---data_path /path/to/imagenet-1k \
---output_dir /path/to/save_results
+--epochs 300 --batch_size 128 --lr 1e-3 --weight_decay 0.04 \
+--aa rand-m7-mstd0.5-inc1 --crop_pct 0.9 --mixup 0.1 \
+--amp --native_amp \
+--data_dir /path/to/imagenet-1k \
+--experiment /path/to/save_results
 ```
 
 Single-machine (8GPUs) with the input size of 256:
 
 ```
-python -m torch.distributed.launch --nproc_per_node=8 main.py \
+python -m torch.distributed.launch --nproc_per_node=8 train.py \
 --model moganet_tiny --input_size 256 --drop_path 0.1 \
---batch_size 128 --lr 1e-3 --weight_decay 0.04 --update_freq 1 \
---aa rand-m7-mstd0.5-inc1 --mixup 0.1 \
---data_path /path/to/imagenet-1k \
---output_dir /path/to/save_results
+--epochs 300 --batch_size 128 --lr 1e-3 --weight_decay 0.04 \
+--aa rand-m7-mstd0.5-inc1 --crop_pct 0.9 --mixup 0.1 \
+--amp --native_amp \
+--data_dir /path/to/imagenet-1k \
+--experiment /path/to/save_results
 ```
 </details>
 
@@ -70,12 +73,13 @@ MogaNet-Small
 Single-machine (8GPUs) with the input size of 224 with EMA (you can evaluate it without EMA):
 
 ```
-python -m torch.distributed.launch --nproc_per_node=8 main.py \
+python -m torch.distributed.launch --nproc_per_node=8 train.py \
 --model moganet_small --input_size 224 --drop_path 0.1 \
---batch_size 128 --lr 1e-3 --weight_decay 0.05 --update_freq 1 \
---model_ema true --model_ema_eval true \
---data_path /path/to/imagenet-1k \
---output_dir /path/to/save_results
+--epochs 300 --batch_size 128 --lr 1e-3 --weight_decay 0.05 \
+--crop_pct 0.9 \
+--model_ema --model_ema_decay 0.9999 \
+--data_dir /path/to/imagenet-1k \
+--experiment /path/to/save_results
 ```
 </details>
 
@@ -86,12 +90,13 @@ MogaNet-Base
 Single-machine (8GPUs) with the input size of 224 with EMA:
 
 ```
-python -m torch.distributed.launch --nproc_per_node=8 main.py \
+python -m torch.distributed.launch --nproc_per_node=8 train.py \
 --model moganet_base --input_size 224 --drop_path 0.2 \
---batch_size 128 --lr 1e-3 --weight_decay 0.05 --update_freq 1 \
---model_ema true --model_ema_eval true \
---data_path /path/to/imagenet-1k \
---output_dir /path/to/save_results
+--epochs 300 --batch_size 128 --lr 1e-3 --weight_decay 0.05 \
+--crop_pct 0.9 \
+--model_ema --model_ema_decay 0.9999 \
+--data_dir /path/to/imagenet-1k \
+--experiment /path/to/save_results
 ```
 </details>
 
@@ -102,11 +107,12 @@ MogaNet-Large
 Single-machine (8GPUs) with the input size of 224 with EMA:
 
 ```
-python -m torch.distributed.launch --nproc_per_node=8 main.py \
+python -m torch.distributed.launch --nproc_per_node=8 train.py \
 --model moganet_large --input_size 224 --drop_path 0.3 \
---batch_size 128 --lr 1e-3 --weight_decay 0.05 --update_freq 1 \
---model_ema true --model_ema_eval true \
---data_path /path/to/imagenet-1k \
---output_dir /path/to/save_results
+--epochs 300 --batch_size 128 --lr 1e-3 --weight_decay 0.05 \
+--crop_pct 0.9 \
+--model_ema --model_ema_decay 0.9999 \
+--data_dir /path/to/imagenet-1k \
+--experiment /path/to/save_results
 ```
 </details>

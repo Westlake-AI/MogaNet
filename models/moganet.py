@@ -1,9 +1,44 @@
+# Copyright 2021 Garena Online Private Limited
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import copy
 import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+
+from timm.data import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
 from timm.models.layers import trunc_normal_, DropPath
 from timm.models.registry import register_model
+
+try:
+    from mmseg.models.builder import BACKBONES as seg_BACKBONES
+    from mmseg.utils import get_root_logger
+    from mmcv.runner import _load_checkpoint
+    has_mmseg = True
+except ImportError:
+    print("If for semantic segmentation, please install mmsegmentation first")
+    has_mmseg = False
+
+try:
+    from mmdet.models.builder import BACKBONES as det_BACKBONES
+    from mmdet.utils import get_root_logger
+    from mmcv.runner import _load_checkpoint
+    has_mmdet = True
+except ImportError:
+    print("If for detection, please install mmdetection first")
+    has_mmdet = False
 
 
 def build_act_layer(act_type):
@@ -457,6 +492,12 @@ class MogaNet(nn.Module):
             Defaults to 'BN'.
         conv_norm_type (str): The type for convolution normalization layer.
             Defaults to 'BN'.
+        fork_feat (bool): Whether to output features of the 4 stages for dense
+            prediction tasks. Defaults to False.
+        init_cfg (dict): Init config dict for mmdetection and mmsegmentation
+            to load pretrained weights. Defaults to None.
+        pretrained (str): Pretrained path for mmdetection and mmsegmentation
+            to load pretrained weights (old version). Defaults to None.
     """
     arch_zoo = {
         **dict.fromkeys(['xt', 'x-tiny'],
@@ -497,7 +538,10 @@ class MogaNet(nn.Module):
                  attn_channel_split=[1, 3, 4],
                  attn_act_type='SiLU',
                  attn_final_dilation=True,
-                 attn_force_fp32=True,
+                 attn_force_fp32=False,
+                 fork_feat=False,
+                 init_cfg=None,
+                 pretrained=None,
                  **kwargs):
         super().__init__()
 
@@ -519,6 +563,7 @@ class MogaNet(nn.Module):
         self.attn_force_fp32 = attn_force_fp32
         self.use_layer_norm = stem_norm_type == 'LN'
         assert len(patchembed_types) == self.num_stages
+        self.fork_feat = fork_feat
 
         total_depth = sum(self.depths)
         dpr = [
@@ -568,13 +613,27 @@ class MogaNet(nn.Module):
             self.add_module(f'blocks{i + 1}', blocks)
             self.add_module(f'norm{i + 1}', norm)
 
-        self.head = nn.Linear(self.embed_dims[-1], num_classes)
+        if self.fork_feat:
+            self.head = nn.Identity()
+        else:
+            # Classifier head
+            self.num_classes = num_classes
+            self.head = nn.Linear(self.embed_dims[-1], num_classes) \
+                if num_classes > 0 else nn.Identity()
 
-        self.apply(self._init_weights)
-        self.head.weight.data.mul_(head_init_scale)
-        self.head.bias.data.mul_(head_init_scale)
+            # init for classification
+            self.apply(self._init_weights)
+            self.head.weight.data.mul_(head_init_scale)
+            self.head.bias.data.mul_(head_init_scale)
+
+        self.init_cfg = copy.deepcopy(init_cfg)
+        # load pre-trained model 
+        if self.fork_feat and (
+                self.init_cfg is not None or pretrained is not None):
+            self.init_weights(pretrained)
 
     def _init_weights(self, m):
+        """ Init for timm image classification """
         if isinstance(m, nn.Linear):
             trunc_normal_(m.weight, std=.02)
             if isinstance(m, nn.Linear) and m.bias is not None:
@@ -588,6 +647,38 @@ class MogaNet(nn.Module):
             m.weight.data.normal_(0, math.sqrt(2.0 / fan_out))
             if m.bias is not None:
                 m.bias.data.zero_()
+
+    def init_weights(self, pretrained=None):
+        """ Init for mmdetection or mmsegmentation by loading pre-trained weights """
+        logger = get_root_logger()
+        if self.init_cfg is None and pretrained is None:
+            logger.warn(f'No pre-trained weights for '
+                        f'{self.__class__.__name__}, '
+                        f'training start from scratch')
+            pass
+        else:
+            assert 'checkpoint' in self.init_cfg, f'Only support specify ' \
+                                                  f'`Pretrained` in `init_cfg` in ' \
+                                                  f'{self.__class__.__name__} '
+            if self.init_cfg is not None:
+                ckpt_path = self.init_cfg['checkpoint']
+            elif pretrained is not None:
+                ckpt_path = pretrained
+
+            ckpt = _load_checkpoint(ckpt_path, logger=logger, map_location='cpu')
+            if 'state_dict' in ckpt:
+                _state_dict = ckpt['state_dict']
+            elif 'model' in ckpt:
+                _state_dict = ckpt['model']
+            else:
+                _state_dict = ckpt
+
+            state_dict = _state_dict
+            missing_keys, unexpected_keys = \
+                self.load_state_dict(state_dict, False)
+            # show for debug
+            # print('missing_keys: ', missing_keys)
+            # print('unexpected_keys: ', unexpected_keys)
 
     def freeze_patch_emb(self):
         self.patch_embed1.requires_grad = False
@@ -605,6 +696,7 @@ class MogaNet(nn.Module):
             self.embed_dims[-1], num_classes) if num_classes > 0 else nn.Identity()
 
     def forward_features(self, x):
+        outs = []
         for i in range(self.num_stages):
             patch_embed = getattr(self, f'patch_embed{i + 1}')
             blocks = getattr(self, f'blocks{i + 1}')
@@ -620,15 +712,44 @@ class MogaNet(nn.Module):
                             block.out_channels).permute(0, 3, 1, 2).contiguous()
             else:
                 x = norm(x)
+            if self.fork_feat:
+                outs.append(x)
 
-        return x.mean(dim=[2, 3])
+        if self.fork_feat:
+            # output the features of four stages for dense prediction
+            return tuple(outs)
+        else:
+            # output only the last layer for image classification
+            return x.mean(dim=[2, 3])
 
     def forward(self, x):
         x = self.forward_features(x)
-        x = self.head(x)
+        if self.fork_feat:
+            # for dense prediction
+            return x
+        else:
+            # for image classification
+            x = self.head(x)
+            return x
 
-        return x
 
+def _cfg(url='', **kwargs):
+    return {
+        'url': url,
+        'num_classes': 1000, 'input_size': (3, 224, 224),
+        'crop_pct': 0.90, 'interpolation': 'bicubic',
+        'mean': IMAGENET_DEFAULT_MEAN, 'std': IMAGENET_DEFAULT_STD, 
+        'classifier': 'head',
+        **kwargs
+    }
+
+default_cfgs = {
+    'moganet_xt': _cfg(crop_pct=0.9),
+    'moganet_t': _cfg(crop_pct=0.9),
+    'moganet_s': _cfg(crop_pct=0.9),
+    'moganet_b': _cfg(crop_pct=0.9),
+    'moganet_l': _cfg(crop_pct=0.9),
+}
 
 model_urls = {
     "moganet_xtiny_1k": "",
@@ -642,6 +763,7 @@ model_urls = {
 @register_model
 def moganet_xtiny(pretrained=False, **kwargs):
     model = MogaNet(arch='x-tiny', **kwargs)
+    model.default_cfg = default_cfgs['moganet_xt']
     if pretrained:
         url = model_urls['moganet_xtiny_1k']
         checkpoint = torch.hub.load_state_dict_from_url(url=url, map_location="cpu", check_hash=True)
@@ -651,6 +773,7 @@ def moganet_xtiny(pretrained=False, **kwargs):
 @register_model
 def moganet_tiny(pretrained=False, **kwargs):
     model = MogaNet(arch='tiny', **kwargs)
+    model.default_cfg = default_cfgs['moganet_t']
     if pretrained:
         url = model_urls['moganet_tiny_1k']
         checkpoint = torch.hub.load_state_dict_from_url(url=url, map_location="cpu", check_hash=True)
@@ -660,6 +783,7 @@ def moganet_tiny(pretrained=False, **kwargs):
 @register_model
 def moganet_tiny_sz256(pretrained=False, **kwargs):
     model = MogaNet(arch='tiny', **kwargs)
+    model.default_cfg = default_cfgs['moganet_t']
     if pretrained:
         url = model_urls['moganet_tiny_1k_sz256']
         checkpoint = torch.hub.load_state_dict_from_url(url=url, map_location="cpu", check_hash=True)
@@ -669,6 +793,7 @@ def moganet_tiny_sz256(pretrained=False, **kwargs):
 @register_model
 def moganet_small(pretrained=False, **kwargs):
     model = MogaNet(arch='small', **kwargs)
+    model.default_cfg = default_cfgs['moganet_s']
     if pretrained:
         url = model_urls['moganet_small_1k']
         checkpoint = torch.hub.load_state_dict_from_url(url=url, map_location="cpu", check_hash=True)
@@ -678,6 +803,7 @@ def moganet_small(pretrained=False, **kwargs):
 @register_model
 def moganet_base(pretrained=False, **kwargs):
     model = MogaNet(arch='base', **kwargs)
+    model.default_cfg = default_cfgs['moganet_b']
     if pretrained:
         url = model_urls['moganet_base_1k']
         checkpoint = torch.hub.load_state_dict_from_url(url=url, map_location="cpu", check_hash=True)
@@ -687,8 +813,24 @@ def moganet_base(pretrained=False, **kwargs):
 @register_model
 def moganet_large(pretrained=False, **kwargs):
     model = MogaNet(arch='large', **kwargs)
+    model.default_cfg = default_cfgs['moganet_l']
     if pretrained:
         url = model_urls['moganet_large_1k']
         checkpoint = torch.hub.load_state_dict_from_url(url=url, map_location="cpu", check_hash=True)
         model.load_state_dict(checkpoint["state_dict"])
     return model
+
+
+if has_mmseg and has_mmdet:
+    """
+    The following models are for dense prediction based on 
+    mmdetection and mmsegmentation
+    """
+    @seg_BACKBONES.register_module()
+    @det_BACKBONES.register_module()
+    class MogaNet_feat(MogaNet):
+        """
+        MogaNet Model for Dense Prediction.
+        """
+        def __init__(self, **kwargs):
+            super().__init__(fork_feat=True, **kwargs)
