@@ -39,8 +39,8 @@ We propose **MogaNet**, a new family of efficient ConvNets, to pursue informativ
 We plan to release implementations of MogaNet in a few months. Please watch us for the latest release. Currently, this repo is reimplemented according to our official implementations in [OpenMixup](https://github.com/Westlake-AI/openmixup/), and we are working on cleaning up experimental results and code implementations.
 
 - [x] **ImageNet-1K** Training and Validation Code [[here](#image-classification)]
-- [ ] Downstream Transfer to **Object Detection and Instance Segmentation on COCO** <!-- [[here](detection/)] -->
-- [ ] Downstream Transfer to **Semantic Segmentation on ADE20K** <!-- [[here](segmentation/)] -->
+- [x] Downstream Transfer to **Object Detection and Instance Segmentation on COCO** [[here](detection/)]
+- [x] Downstream Transfer to **Semantic Segmentation on ADE20K** [[here](segmentation/)]
 - [x] Image Classification on Google Colab and Notebook Demo [[here](demo.ipynb)]
 
 ## Image Classification
@@ -51,7 +51,7 @@ Please check [INSTALL.md](INSTALL.md) for installation instructions.
 
 ### 2. Training and Validation
 
-See [TRAINING.md](TRAINING.md) for ImageNet-1K training and validation instructions, or refer to our [OpenMixup](https://github.com/Westlake-AI/openmixup/tree/main/configs/classification/imagenet/moganet/) implementations. We released pre-trained models on [OpenMixup](https://github.com/Westlake-AI/openmixup/tree/main/configs/classification/imagenet/moganet/) in [moganet-in1k-weights](https://github.com/Westlake-AI/openmixup/releases/tag/moganet-in1k-weights). We have also reproduced ImageNet results with this repo and released `args.yaml` / `summary.csv` / `model.pth.tar` in [moganet-in1k-weights](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-in1k-weights).
+See [TRAINING.md](TRAINING.md) for ImageNet-1K training and validation instructions, or refer to our [OpenMixup](https://github.com/Westlake-AI/openmixup/tree/main/configs/classification/imagenet/moganet/) implementations. We released pre-trained models on [OpenMixup](https://github.com/Westlake-AI/openmixup/tree/main/configs/classification/imagenet/moganet/) in [moganet-in1k-weights](https://github.com/Westlake-AI/openmixup/releases/tag/moganet-in1k-weights). We have also reproduced ImageNet results with this repo and released `args.yaml` / `summary.csv` / `model.pth.tar` in [moganet-in1k-weights](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-in1k-weights). The parameters in the trained model can be extracted by [code](extract_ckpt.py).
 
 Here is a notebook [demo](demo.ipynb) of MogaNet which run the steps to perform inference with MogaNet for image classification.
 
@@ -97,8 +97,8 @@ Our implementation is mainly based on the following codebases. We gratefully tha
 
 - [pytorch-image-models](https://github.com/rwightman/pytorch-image-models)
 - [PoolFormer](https://github.com/sail-sg/poolformer)
-- [mmdetection](https://github.com/open-mmlab/mmdetection)
-- [mmsegmentation](https://github.com/open-mmlab/mmsegmentation)
+- [MMDetection](https://github.com/open-mmlab/mmdetection)
+- [MMSegmentation](https://github.com/open-mmlab/mmsegmentation)
 
 ## Citation
 

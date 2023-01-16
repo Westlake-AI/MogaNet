@@ -492,8 +492,23 @@ class MogaNet(nn.Module):
             Defaults to 'BN'.
         conv_norm_type (str): The type for convolution normalization layer.
             Defaults to 'BN'.
+        patchembed_types (list): The type of PatchEmbedding in each stage.
+            Defaults to ``['ConvEmbed', 'Conv', 'Conv', 'Conv',]``.
+        attn_dw_dilation (list): The dilate rate of depth-wise convolutions in
+            Moga Blocks. Defaults to ``[1, 2, 3]``.
+        attn_channel_split (list): The channel split rate of three depth-wise
+            convolutions in Moga Blocks. Defaults to ``[1, 3, 4]``, i.e.,
+            divided into ``[1/8, 3/8, 4/8]``.
+        attn_act_cfg (dict): Config dict for activation of gating in Moga
+            Blocks. Defaults to ``dict(type='SiLU')``.
+        attn_final_dilation (bool): Whether to adopt dilated depth-wise
+        attn_force_fp32 (bool): Whether to force the gating running with fp32.
+            Warning: If you use `attn_force_fp32=False` during training, you
+            should also keep it false during evaluation, because the output results
+            of whether to use `attn_force_fp32` are different. We set it to false
+            in this repo to facilitate code migration. Defaults to False.
         fork_feat (bool): Whether to output features of the 4 stages for dense
-            prediction tasks. Defaults to False.
+            prediction tasks in mmdetection and mmsegmentation. Defaults to False.
         init_cfg (dict): Init config dict for mmdetection and mmsegmentation
             to load pretrained weights. Defaults to None.
         pretrained (str): Pretrained path for mmdetection and mmsegmentation
@@ -756,7 +771,7 @@ model_urls = {
     "moganet_tiny_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz224_8xbs128_ep300.pth.tar",
     "moganet_tiny_1k_sz256": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz256_8xb128_ep300.pth.tar",
     "moganet_small_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_small_sz224_8xbs128_ep300.pth.tar",
-    "moganet_base_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_small_sz224_8xbs128_ep300.pth.tar",
+    "moganet_base_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_base_sz224_8xbs128_ep300.pth.tar",
     "moganet_large_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_large_sz224_8xbs64_ep300.pth.tar",
 }
 

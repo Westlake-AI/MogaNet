@@ -15,12 +15,12 @@ python -m torch.distributed.launch --nproc_per_node=8 train.py \
 --experiment /path/to/save_results
 ```
 
-- Batch size scaling. The effective batch size is equal to `--nproc_per_node` * `--batch_size`. In the example above, the effective batch size is `8*128 = 1024`. Running on one machine, we can reduce `--batch_size` and use `--amp` to avoid OOM issues while keeping the total batch size unchanged.
+- Batch size scaling. The effective batch size is equal to `--nproc_per_node` * `--batch_size`. In the example above, the effective batch size is `8*128 = 1024`. Running on one machine, we can reduce `--batch_size` and use `--amp` to avoid OOM issues while keeping the total batch size unchanged. As for fp16 training with Pytorch>=1.6.0, we recommend using `--amp --native_amp` instead of [apex-amp](https://github.com/NVIDIA/apex).
 - Learning rate scaling. The default learning rate setting is `lr=1e-3 / bs1024`. We find that `lr=2e-3 / bs1024` and `lr=1e-3 / bs512` produce better performances and more stable training for MogaNet-XT/T and MogaNet-S/B/L.
-- EMA. We adopt the EMA trick for MogaNet-S/B/L using `--model_ema` and `--model_ema_decay 0.9999`.
+- EMA evaluation. We adopt the EMA trick for MogaNet-S/B/L using `--model_ema` and `--model_ema_decay 0.9999` for better performances.
+- The difference between this repo and OpenMixup's implementation. In [OpenMixup](https://github.com/Westlake-AI/openmixup), we adopt `attn_force_fp32` to run the gating functions with fp32 to avoid inf or nan during fp16 training. We found that if we use `attn_force_fp32=True` during training, it should also keep `attn_force_fp32=True` during evaluation because the difference between the output results of using `attn_force_fp32` or not. It will not affect performances of fully fine-tuning but the results of transfer learning (e.g., COCO Mask-RCNN freezes the parameters of the first stage). We set `attn_force_fp32` to true in [OpenMixup](https://github.com/Westlake-AI/openmixup) while turning it off in this repo (to facilitate code migration).
 
 To train other MogaNet variants, `--model` and `--drop_path` need to be changed. Examples with single-machine commands are given below:
-
 
 <details>
 <summary>

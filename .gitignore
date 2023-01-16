@@ -133,5 +133,5 @@ tensorboard.sh
 *.json
 
 # temp
-detection
-segmentation
+# detection
+# segmentation
