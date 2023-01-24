@@ -23,22 +23,33 @@ from timm.models.layers import trunc_normal_, DropPath
 from timm.models.registry import register_model
 
 try:
+    from mmcv.runner import _load_checkpoint
+except ImportError:
+    print("If for dense prediction tasks, please install mmcv-full first.")
+
+try:
     from mmseg.models.builder import BACKBONES as seg_BACKBONES
     from mmseg.utils import get_root_logger
-    from mmcv.runner import _load_checkpoint
     has_mmseg = True
 except ImportError:
-    print("If for semantic segmentation, please install mmsegmentation first")
+    print("If for semantic segmentation, please install mmsegmentation first.")
     has_mmseg = False
 
 try:
     from mmdet.models.builder import BACKBONES as det_BACKBONES
     from mmdet.utils import get_root_logger
-    from mmcv.runner import _load_checkpoint
     has_mmdet = True
 except ImportError:
-    print("If for detection, please install mmdetection first")
+    print("If for detection, please install mmdetection first.")
     has_mmdet = False
+
+try:
+    from mmpose.models.builder import BACKBONES as pose_BACKBONES
+    from mmpose.utils import get_root_logger
+    has_mmpose = True
+except ImportError:
+    print("If for detection, please install mmdetection first.")
+    has_mmpose = False
 
 
 def build_act_layer(act_type):
@@ -672,10 +683,10 @@ class MogaNet(nn.Module):
                         f'training start from scratch')
             pass
         else:
-            assert 'checkpoint' in self.init_cfg, f'Only support specify ' \
-                                                  f'`Pretrained` in `init_cfg` in ' \
-                                                  f'{self.__class__.__name__} '
             if self.init_cfg is not None:
+                assert 'checkpoint' in self.init_cfg, f'Only support specify ' \
+                                                      f'`Pretrained` in `init_cfg` in ' \
+                                                      f'{self.__class__.__name__} '
                 ckpt_path = self.init_cfg['checkpoint']
             elif pretrained is not None:
                 ckpt_path = pretrained
@@ -732,7 +743,7 @@ class MogaNet(nn.Module):
 
         if self.fork_feat:
             # output the features of four stages for dense prediction
-            return tuple(outs)
+            return outs
         else:
             # output only the last layer for image classification
             return x.mean(dim=[2, 3])
@@ -773,6 +784,10 @@ model_urls = {
     "moganet_small_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_small_sz224_8xbs128_ep300.pth.tar",
     "moganet_base_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_base_sz224_8xbs128_ep300.pth.tar",
     "moganet_large_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_large_sz224_8xbs64_ep300.pth.tar",
+    "moganet_tiny_21k": "",
+    "moganet_small_21k": "",
+    "moganet_base_21k": "",
+    "moganet_large_21k": "",
 }
 
 @register_model
@@ -836,13 +851,30 @@ def moganet_large(pretrained=False, **kwargs):
     return model
 
 
-if has_mmseg and has_mmdet:
+if has_mmdet:
     """
-    The following models are for dense prediction based on 
-    mmdetection and mmsegmentation
+    The following models are for dense prediction tasks based on
+    mmdetection, mmsegmentation, and mmpose.
     """
-    @seg_BACKBONES.register_module()
     @det_BACKBONES.register_module()
+    class MogaNet_feat(MogaNet):
+        """
+        MogaNet Model for Dense Prediction.
+        """
+        def __init__(self, **kwargs):
+            super().__init__(fork_feat=True, **kwargs)
+
+if has_mmseg:
+    @seg_BACKBONES.register_module()
+    class MogaNet_feat(MogaNet):
+        """
+        MogaNet Model for Dense Prediction.
+        """
+        def __init__(self, **kwargs):
+            super().__init__(fork_feat=True, **kwargs)
+
+if has_mmpose:
+    @pose_BACKBONES.register_module()
     class MogaNet_feat(MogaNet):
         """
         MogaNet Model for Dense Prediction.

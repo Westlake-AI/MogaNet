@@ -36,8 +36,7 @@ optimizer_config = dict(
 )
 ```
 
-Note: Since we write [MogaNet backbone code](../models/moganet.py) of detection and segmentation in a same file which requires to install both [MMDetection v2.26.0](https://github.com/open-mmlab/mmdetection/tree/v2.26.0) and [MMSegmentation v0.29.1](https://github.com/open-mmlab/mmsegmentation/tree/v0.29.1). Please continue to install MMSegmentation or modify the backone code.
-
+Note: Since we write [MogaNet backbone code](../models/moganet.py) of detection, segmentation, and pose estimation in the same file, it also works for [MMSegmentation](https://github.com/open-mmlab/mmsegmentation/tree/v0.29.1) and [MMPose](https://github.com/open-mmlab/mmpose/tree/v0.29.0) through `@BACKBONES.register_module()`. Please continue to install MMSegmentation or MMPose for further usage.
 
 ## Data preparation
 
@@ -49,15 +48,15 @@ Prepare COCO according to the guidelines in [MMDetection](https://github.com/ope
 
 | Method | Backbone | Pretrain | Params | FLOPs | Lr schd | Aug | box mAP | mask mAP | Config | Download |
 |:---:|:---:|:---:|---|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| RetinaNet | MogaNet-XT | ImageNet-1K | 12.1M | 167.2G | 1x | No |  | - | [config](configs/mask_rcnn_moganet_xtiny_fpn_1x_coco.py) | log / model |
-| RetinaNet | MogaNet-T | ImageNet-1K | 14.4M | 173.4G | 1x | No |  | - | [config](configs/mask_rcnn_moganet_tiny_fpn_1x_coco.py) | log / model |
-| RetinaNet | MogaNet-S | ImageNet-1K | 35.1M | 253.0G | 1x | No |  | - | [config](configs/mask_rcnn_moganet_small_fpn_1x_coco.py) | log / model |
+| RetinaNet | MogaNet-XT | ImageNet-1K | 12.1M | 167.2G | 1x | No | 38.9 | - | [config](configs/mask_rcnn_moganet_xtiny_fpn_1x_coco.py) | log / model |
+| RetinaNet | MogaNet-T | ImageNet-1K | 14.4M | 173.4G | 1x | No | 40.9 | - | [config](configs/mask_rcnn_moganet_tiny_fpn_1x_coco.py) | log / model |
+| RetinaNet | MogaNet-S | ImageNet-1K | 35.1M | 253.0G | 1x | No | 45.4 | - | [config](configs/mask_rcnn_moganet_small_fpn_1x_coco.py) | log / model |
 | RetinaNet | MogaNet-B | ImageNet-1K | 53.5M | 354.5G | 1x | No |  | - | [config](configs/mask_rcnn_moganet_base_fpn_1x_coco.py) | log / model |
 | RetinaNet | MogaNet-L | ImageNet-1K | 92.4M | 476.8G | 1x | No |  | - | [config](configs/mask_rcnn_moganet_large_fpn_1x_coco.py) | log / model |
-| Mask R-CNN | MogaNet-XT | ImageNet-1K | 22.8M | 185.4G | 1x | No |  |  | [config](configs/retinanet_moganet_xtiny_fpn_1x_coco.py) | log / model |
-| Mask R-CNN | MogaNet-T | ImageNet-1K | 25.0M | 191.7G | 1x | No |  |  | [config](configs/retinanet_moganet_tiny_fpn_1x_coco.py) | log / model |
-| Mask R-CNN | MogaNet-S | ImageNet-1K | 45.0M | 271.6G | 1x | No |  |  | [config](configs/retinanet_moganet_small_fpn_1x_coco.py) | log / model |
-| Mask R-CNN | MogaNet-B | ImageNet-1K | 63.4M | 373.1G | 1x | No |  |  | [config](configs/retinanet_moganet_base_fpn_1x_coco.py) | log / model |
+| Mask R-CNN | MogaNet-XT | ImageNet-1K | 22.8M | 185.4G | 1x | No | 40.7 | 37.6 | [config](configs/retinanet_moganet_xtiny_fpn_1x_coco.py) | log / model |
+| Mask R-CNN | MogaNet-T | ImageNet-1K | 25.0M | 191.7G | 1x | No | 42.6 | 39.1 | [config](configs/retinanet_moganet_tiny_fpn_1x_coco.py) | log / model |
+| Mask R-CNN | MogaNet-S | ImageNet-1K | 45.0M | 271.6G | 1x | No | 46.1 | 41.8 | [config](configs/retinanet_moganet_small_fpn_1x_coco.py) | log / model |
+| Mask R-CNN | MogaNet-B | ImageNet-1K | 63.4M | 373.1G | 1x | No | 48.2 | 43.4 | [config](configs/retinanet_moganet_base_fpn_1x_coco.py) | log / model |
 | Mask R-CNN | MogaNet-L | ImageNet-1K | 102.1M | 495.3G | 1x | No |  |  | [config](configs/retinanet_moganet_large_fpn_1x_coco.py) | log / model |
 
 **Notes**: All the models can also be downloaded by [**Baidu Cloud**](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) (z8mf). The params (M) and FLOPs (G) are measured by [get_flops](get_flops.sh) with 1280 $\times$ 800 resolutions.

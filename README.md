@@ -1,5 +1,5 @@
 <div align="center">
-<h1>MogaNet: Efficient Multi-order Gated Aggregation Network</h1>
+<!-- <h1>MogaNet: Efficient Multi-order Gated Aggregation Network</h1> -->
 <h2><a href="https://arxiv.org/abs/2211.03295">Efficient Multi-order Gated Aggregation Network</a></h2>
 
 [Siyuan Li](https://lupin1998.github.io/)<sup>\*,1,2</sup>, [Zedong Wang](https://zedongwang.netlify.app/)<sup>\*,1</sup>, [Zicheng Liu](https://pone7.github.io/)<sup>1,2</sup>, [Chen Tan](https://chengtan9907.github.io/)<sup>1,2</sup>, [Haitao Lin](https://bird-tao.github.io/)<sup>1,2</sup>, [Di Wu](https://scholar.google.com/citations?user=egz8bGQAAAAJ&hl=zh-CN)<sup>1,2</sup>, [Zhiyuan Chen](https://zyc.ai/)<sup>1</sup>, [Jiangbin Zheng](https://scholar.google.com/citations?user=egz8bGQAAAAJ&hl=zh-CN)<sup>1,2</sup>, [Stan Z. Li](https://scholar.google.com/citations?user=Y-nyLGIAAAAJ&hl=zh-CN)<sup>†,1</sup>
@@ -41,6 +41,7 @@ We plan to release implementations of MogaNet in a few months. Please watch us f
 - [x] **ImageNet-1K** Training and Validation Code [[here](#image-classification)]
 - [x] Downstream Transfer to **Object Detection and Instance Segmentation on COCO** [[here](detection/)]
 - [x] Downstream Transfer to **Semantic Segmentation on ADE20K** [[here](segmentation/)]
+- [x] Downstream Transfer to **2D Human Pose Estimation on COCO** [[here](pose_estimation/)]
 - [x] Image Classification on Google Colab and Notebook Demo [[here](demo.ipynb)]
 
 ## Image Classification
@@ -60,6 +61,7 @@ Here is a notebook [demo](demo.ipynb) of MogaNet which run the steps to perform 
 | Model | Resolution | Params (M) | Flops (G) | Top-1 / top-5 (%) | Script | Download |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|
 | MogaNet-XT | 224x224 | 2.97 | 0.80 | 76.5 / 93.4 | [args](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xtiny_sz224_8xbs128_ep300_args.yaml) / [script](TRAINING.md) | [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xtiny_sz224_8xbs128_ep300.pth.tar) / [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xtiny_sz224_8xbs128_ep300_summary.csv) |
+| MogaNet-XT | 256x256 | 2.97 | 1.04 | 77.2 / 93.8 | [args](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xtiny_sz256_8xbs128_ep300_args.yaml) / [script](TRAINING.md) | [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xtiny_sz256_8xbs128_ep300.pth.tar) / [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xtiny_sz256_8xbs128_ep300_summary.csv) |
 | MogaNet-T | 224x224 | 5.20 | 1.10 | 79.0 / 94.6 | [args](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz224_8xbs128_ep300_args.yaml) / [script](TRAINING.md) | [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz224_8xbs128_ep300.pth.tar) / [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz224_8xbs128_ep300_summary.csv) |
 | MogaNet-T | 256x256 | 5.20 | 1.44 | 79.6 / 94.9 | [args](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz256_8xbs128_ep300_args.yaml) / [script](TRAINING.md) | [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz256_8xb128_ep300.pth.tar) / [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz256_8xb128_ep300_summary.csv) |
 | MogaNet-T\* | 256x256 | 5.20 | 1.44 | 80.0 / 95.0 | [config](https://github.com/Westlake-AI/openmixup/tree/main/configs/classification/imagenet/moganet/moga_tiny_deit3_sz256_lr2e_3_8xb128_fp16_ep300.py) / [script](TRAINING.md) | [model](https://github.com/Westlake-AI/openmixup/releases/download/moganet-in1k-weights/moga_tiny_deit3_sz256_lr2e_3_8xb128_fp16_ep300.pth) / [log](https://github.com/Westlake-AI/openmixup/releases/download/moganet-in1k-weights/moga_tiny_deit3_sz256_lr2e_3_8xb128_fp16_ep300.log.json) |

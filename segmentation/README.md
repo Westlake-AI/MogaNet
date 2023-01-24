@@ -5,7 +5,7 @@ For more details, see [Efficient Multi-order Gated Aggregation Network](https://
 
 ## Note
 
-Please note that we just simply follow the hyper-parameters of [PVT](https://github.com/whai362/PVT/tree/v2/detection) and [VAN](https://github.com/Visual-Attention-Network/VAN-Segmentation) which may not be the optimal ones for MogaNet. Feel free to tune the hyper-parameters to get better performance.
+Please note that we just simply follow the hyper-parameters of [PVT](https://github.com/whai362/PVT/tree/v2/detection), [Swin](https://github.com/microsoft/Swin-Transformer), and [VAN](https://github.com/Visual-Attention-Network/VAN-Segmentation), which may not be the optimal ones for MogaNet. Feel free to tune the hyper-parameters to get better performance.
 
 ## Environement Setup
 
@@ -16,8 +16,7 @@ mim install mmcv-full
 pip install mmseg
 ```
 
-Note: Since we write [MogaNet backbone code](../models/moganet.py) of detection and segmentation in a same file which requires to install both [MMDetection v2.26.0](https://github.com/open-mmlab/mmdetection/tree/v2.26.0) and [MMSegmentation v0.29.1](https://github.com/open-mmlab/mmsegmentation/tree/v0.29.1). Please continue to install MMDetection or modify the backone code.
-
+Note: Since we write [MogaNet backbone code](../models/moganet.py) of detection, segmentation, and pose estimation in the same file, it also works for [MMDetection](https://github.com/open-mmlab/mmdetection/tree/v2.26.0) and [MMPose](https://github.com/open-mmlab/mmpose/tree/v0.29.0) through `@BACKBONES.register_module()`. Please continue to install MMDetection or MMPose for further usage.
 
 ## Data preparation
 
