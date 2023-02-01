@@ -32,10 +32,10 @@ norm_cfg = dict(type='SyncBN', requires_grad=True)
 model = dict(
     type='TopDown',
     pretrained="https://github.com/Westlake-AI/MogaNet/releases/download/"
-               "moganet-in1k-weights/moganet_tiny_sz224_8xbs128_ep300.pth.tar",
+               "moganet-in1k-weights/moganet_small_sz224_8xbs128_ep300.pth.tar",
     backbone=dict(        
         type='MogaNet_feat',
-        arch="tiny",  # modify 'arch' for various architectures
+        arch="small",  # modify 'arch' for various architectures
         init_value=1e-5,
         frozen_stages=1,
         drop_path_rate=0.1,
@@ -45,7 +45,7 @@ model = dict(
     ),
     keypoint_head=dict(
         type='TopdownHeatmapSimpleHead',
-        in_channels=256,  # modify 'in_channels' for various architectures
+        in_channels=512,  # modify 'in_channels' for various architectures
         out_channels=channel_cfg['num_output_channels'],
         in_index=3,
         loss_keypoint=dict(type='JointsMSELoss', use_target_weight=True)),
@@ -57,8 +57,8 @@ model = dict(
         modulate_kernel=11))
 
 data_cfg = dict(
-    image_size=[288, 384],
-    heatmap_size=[72, 96],
+    image_size=[192, 256],
+    heatmap_size=[48, 64],
     num_output_channels=channel_cfg['num_output_channels'],
     num_joints=channel_cfg['dataset_joints'],
     dataset_channel=channel_cfg['dataset_channel'],

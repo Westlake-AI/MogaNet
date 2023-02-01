@@ -6,7 +6,7 @@ evaluation = dict(interval=10, metric='mAP', save_best='AP')
 
 optimizer = dict(
     type='Adam',
-    lr=5e-4,
+    lr=1e-3,
 )
 optimizer_config = dict(grad_clip=None)
 # learning policy
@@ -37,6 +37,7 @@ model = dict(
         type='MogaNet_feat',
         arch="tiny",  # modify 'arch' for various architectures
         init_value=1e-5,
+        frozen_stages=1,
         drop_path_rate=0.1,
         stem_norm_cfg=norm_cfg,
         conv_norm_cfg=norm_cfg,

@@ -35,11 +35,6 @@ bash get_flops.sh /path/to/config --shape 2048 512
 
 | Method | Backbone | Pretrain | Params | FLOPs | Iters | mIoU | mAcc | Config | Download |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Semantic FPN | MogaNet-XT | ImageNet-1K | 6.9M | 101.4G | 40K |  |  | [config](configs/sem_fpn/moganet/fpn_moganet_xtiny_40k_ade20k.py) | log / model |
-| Semantic FPN | MogaNet-T | ImageNet-1K | 9.1M | 107.8G | 40K |  |  | [config](configs/sem_fpn/moganet/fpn_moganet_xtiny_80k_ade20k.py) | log / model |
-| Semantic FPN | MogaNet-S | ImageNet-1K | 29.1M | 189.7G | 40K |  |  | [config](configs/sem_fpn/moganet/fpn_moganet_tiny_40k_ade20k.py) | log / model |
-| Semantic FPN | MogaNet-B | ImageNet-1K | 47.5M | 293.6G | 40K |  |  | [config](configs/sem_fpn/moganet/fpn_moganet_tiny_80k_ade20k.py) | log / model |
-| Semantic FPN | MogaNet-L | ImageNet-1K | 86.2M | 418.7G | 40K |  |  | [config](configs/sem_fpn/moganet/fpn_moganet_small_40k_ade20k.py) | log / model |
 | Semantic FPN | MogaNet-XT | ImageNet-1K | 6.9M | 101.4G | 80K |  |  | [config](configs/sem_fpn/moganet/fpn_moganet_small_80k_ade20k.py) | log / model |
 | Semantic FPN | MogaNet-T | ImageNet-1K | 9.1M | 107.8G | 80K |  |  | [config](configs/sem_fpn/moganet/fpn_moganet_base_40k_ade20k.py) | log / model |
 | Semantic FPN | MogaNet-S | ImageNet-1K | 29.1M | 189.7G | 80K |  |  | [config](configs/sem_fpn/moganet/fpn_moganet_base_80k_ade20k.py) | log / model |

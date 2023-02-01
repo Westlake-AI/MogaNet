@@ -6,7 +6,7 @@ evaluation = dict(interval=10, metric='mAP', save_best='AP')
 
 optimizer = dict(
     type='Adam',
-    lr=1e-3,
+    lr=1e-3,  # lr=5e-4,
 )
 optimizer_config = dict(grad_clip=None)
 # learning policy
@@ -32,10 +32,10 @@ norm_cfg = dict(type='SyncBN', requires_grad=True)
 model = dict(
     type='TopDown',
     pretrained="https://github.com/Westlake-AI/MogaNet/releases/download/"
-               "moganet-in1k-weights/moganet_tiny_sz224_8xbs128_ep300.pth.tar",
+               "moganet-in1k-weights/moganet_small_sz224_8xbs128_ep300.pth.tar",
     backbone=dict(        
         type='MogaNet_feat',
-        arch="tiny",  # modify 'arch' for various architectures
+        arch="small",  # modify 'arch' for various architectures
         init_value=1e-5,
         frozen_stages=1,
         drop_path_rate=0.1,
@@ -45,7 +45,7 @@ model = dict(
     ),
     keypoint_head=dict(
         type='TopdownHeatmapSimpleHead',
-        in_channels=256,  # modify 'in_channels' for various architectures
+        in_channels=512,  # modify 'in_channels' for various architectures
         out_channels=channel_cfg['num_output_channels'],
         in_index=3,
         loss_keypoint=dict(type='JointsMSELoss', use_target_weight=True)),
@@ -148,3 +148,6 @@ data = dict(
         pipeline=test_pipeline,
         dataset_info={{_base_.dataset_info}}),
 )
+
+# fp16 settings
+fp16 = dict(loss_scale='dynamic')
