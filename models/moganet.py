@@ -526,7 +526,7 @@ class MogaNet(nn.Module):
             to load pretrained weights (old version). Defaults to None.
     """
     arch_zoo = {
-        **dict.fromkeys(['xt', 'x-tiny'],
+        **dict.fromkeys(['xt', 'x-tiny', 'xtiny'],
                         {'embed_dims': [32, 64, 96, 192],
                          'depths': [3, 3, 10, 2],
                          'ffn_ratios': [8, 8, 4, 4]}),
@@ -545,6 +545,10 @@ class MogaNet(nn.Module):
         **dict.fromkeys(['l', 'large'],
                         {'embed_dims': [64, 160, 320, 640],
                          'depths': [4, 6, 44, 4],
+                         'ffn_ratios': [8, 8, 4, 4]}),
+        **dict.fromkeys(['xl', 'x-large', 'xlarge'],
+                        {'embed_dims': [96, 192, 480, 960],
+                         'depths': [6, 6, 44, 4],
                          'ffn_ratios': [8, 8, 4, 4]}),
     }  # yapf: disable
 
@@ -775,19 +779,22 @@ default_cfgs = {
     'moganet_s': _cfg(crop_pct=0.9),
     'moganet_b': _cfg(crop_pct=0.9),
     'moganet_l': _cfg(crop_pct=0.9),
+    'moganet_xl': _cfg(crop_pct=0.9),
 }
 
 model_urls = {
     "moganet_xtiny_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xtiny_sz224_8xbs128_ep300.pth.tar",
     "moganet_tiny_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz224_8xbs128_ep300.pth.tar",
-    "moganet_tiny_1k_sz256": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz256_8xb128_ep300.pth.tar",
+    "moganet_tiny_1k_sz256": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz256_8xbs128_ep300.pth.tar",
     "moganet_small_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_small_sz224_8xbs128_ep300.pth.tar",
     "moganet_base_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_base_sz224_8xbs128_ep300.pth.tar",
     "moganet_large_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_large_sz224_8xbs64_ep300.pth.tar",
+    "moganet_xlarge_1k": "",
     "moganet_tiny_21k": "",
     "moganet_small_21k": "",
     "moganet_base_21k": "",
     "moganet_large_21k": "",
+    "moganet_xlarge_21k": "",
 }
 
 @register_model
@@ -846,6 +853,16 @@ def moganet_large(pretrained=False, **kwargs):
     model.default_cfg = default_cfgs['moganet_l']
     if pretrained:
         url = model_urls['moganet_large_1k']
+        checkpoint = torch.hub.load_state_dict_from_url(url=url, map_location="cpu", check_hash=True)
+        model.load_state_dict(checkpoint["state_dict"])
+    return model
+
+@register_model
+def moganet_xlarge(pretrained=False, **kwargs):
+    model = MogaNet(arch='x-large', **kwargs)
+    model.default_cfg = default_cfgs['moganet_xl']
+    if pretrained:
+        url = model_urls['moganet_xlarge_1k']
         checkpoint = torch.hub.load_state_dict_from_url(url=url, map_location="cpu", check_hash=True)
         model.load_state_dict(checkpoint["state_dict"])
     return model

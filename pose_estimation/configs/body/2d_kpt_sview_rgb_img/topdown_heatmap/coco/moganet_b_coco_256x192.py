@@ -6,7 +6,7 @@ evaluation = dict(interval=10, metric='mAP', save_best='AP')
 
 optimizer = dict(
     type='Adam',
-    lr=5e-4,
+    lr=1e-3,
 )
 optimizer_config = dict(grad_clip=None)
 # learning policy
@@ -28,43 +28,26 @@ channel_cfg = dict(
     ])
 
 # model settings
-pretrained = ('https://github.com/SwinTransformer/storage/releases/download'
-              '/v1.0.0/swin_base_patch4_window12_384_22k.pth')
-
+norm_cfg = dict(type='SyncBN', requires_grad=True)
 model = dict(
     type='TopDown',
-    pretrained=pretrained,
+    pretrained="https://github.com/Westlake-AI/MogaNet/releases/download/"
+               "moganet-in1k-weights/moganet_base_sz224_8xbs128_ep300.pth.tar",
     backbone=dict(
-        type='SwinTransformer',
-        embed_dims=128,
-        depths=[2, 2, 18, 2],
-        num_heads=[4, 8, 16, 32],
-        window_size=12,
-        mlp_ratio=4,
-        qkv_bias=True,
-        qk_scale=None,
-        drop_rate=0.,
-        attn_drop_rate=0.,
-        drop_path_rate=0.3,
-        patch_norm=True,
+        type='MogaNet_feat',
+        arch="base",  # modify 'arch' for various architectures
+        init_value=1e-5,
+        frozen_stages=1,
+        drop_path_rate=0.2,
+        stem_norm_cfg=norm_cfg,
+        conv_norm_cfg=norm_cfg,
         out_indices=(0, 1, 2, 3),
-        with_cp=False,
-        convert_weights=True,
     ),
-    neck=dict(
-        type='FPN',
-        in_channels=[128, 256, 512, 1024],
-        start_level=0,
-        out_channels=256,
-        num_outs=4,
-        upsample_cfg=dict(mode='bilinear', align_corners=False)),
     keypoint_head=dict(
         type='TopdownHeatmapSimpleHead',
-        in_channels=256,
+        in_channels=512,  # modify 'in_channels' for various architectures
         out_channels=channel_cfg['num_output_channels'],
-        in_index=0,
-        num_deconv_layers=0,
-        extra=dict(final_conv_kernel=1, ),
+        in_index=3,
         loss_keypoint=dict(type='JointsMSELoss', use_target_weight=True)),
     train_cfg=dict(),
     test_cfg=dict(
@@ -74,8 +57,8 @@ model = dict(
         modulate_kernel=11))
 
 data_cfg = dict(
-    image_size=[288, 384],
-    heatmap_size=[72, 96],
+    image_size=[192, 256],
+    heatmap_size=[48, 64],
     num_output_channels=channel_cfg['num_output_channels'],
     num_joints=channel_cfg['dataset_joints'],
     dataset_channel=channel_cfg['dataset_channel'],

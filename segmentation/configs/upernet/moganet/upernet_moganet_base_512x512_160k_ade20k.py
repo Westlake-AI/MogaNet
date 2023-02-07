@@ -14,7 +14,7 @@ model = dict(
         init_cfg=dict(
             type='Pretrained',
             checkpoint=\
-                'https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_base_sz224_8xbs128_ep300.pth.tar', 
+                'https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_base_sz224_8xbs128_ep300.pth.tar',
             ),
         ),
     decode_head=dict(
@@ -27,7 +27,7 @@ model = dict(
     ))
 
 # AdamW optimizer, no weight decay for position embedding & norm & layer scale in backbone
-optimizer = dict(_delete_=True, type='AdamW', lr=0.00006, betas=(0.9, 0.999), weight_decay=0.01,
+optimizer = dict(_delete_=True, type='AdamW', lr=0.0001, betas=(0.9, 0.999), weight_decay=0.01,
                  paramwise_cfg=dict(custom_keys={'layer_scale': dict(decay_mult=0.),
                                                  'scale': dict(decay_mult=0.),
                                                  'norm': dict(decay_mult=0.)}))

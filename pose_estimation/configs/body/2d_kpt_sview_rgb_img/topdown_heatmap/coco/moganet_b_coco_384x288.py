@@ -6,7 +6,7 @@ evaluation = dict(interval=10, metric='mAP', save_best='AP')
 
 optimizer = dict(
     type='Adam',
-    lr=5e-4,
+    lr=1e-3,
 )
 optimizer_config = dict(grad_clip=None)
 # learning policy
@@ -28,32 +28,24 @@ channel_cfg = dict(
     ])
 
 # model settings
-pretrained = ('https://github.com/SwinTransformer/storage/releases/download'
-              '/v1.0.0/swin_tiny_patch4_window7_224.pth')
-
+norm_cfg = dict(type='SyncBN', requires_grad=True)
 model = dict(
     type='TopDown',
-    pretrained=pretrained,
+    pretrained="https://github.com/Westlake-AI/MogaNet/releases/download/"
+               "moganet-in1k-weights/moganet_base_sz224_8xbs128_ep300.pth.tar",
     backbone=dict(
-        type='SwinTransformer',
-        embed_dims=96,
-        depths=[2, 2, 6, 2],
-        num_heads=[3, 6, 12, 24],
-        window_size=7,
-        mlp_ratio=4,
-        qkv_bias=True,
-        qk_scale=None,
-        drop_rate=0.,
-        attn_drop_rate=0.,
+        type='MogaNet_feat',
+        arch="base",  # modify 'arch' for various architectures
+        init_value=1e-5,
+        frozen_stages=1,
         drop_path_rate=0.2,
-        patch_norm=True,
+        stem_norm_cfg=norm_cfg,
+        conv_norm_cfg=norm_cfg,
         out_indices=(0, 1, 2, 3),
-        with_cp=False,
-        convert_weights=True,
     ),
     keypoint_head=dict(
         type='TopdownHeatmapSimpleHead',
-        in_channels=768,
+        in_channels=512,  # modify 'in_channels' for various architectures
         out_channels=channel_cfg['num_output_channels'],
         in_index=3,
         loss_keypoint=dict(type='JointsMSELoss', use_target_weight=True)),
@@ -65,8 +57,8 @@ model = dict(
         modulate_kernel=11))
 
 data_cfg = dict(
-    image_size=[192, 256],
-    heatmap_size=[48, 64],
+    image_size=[288, 384],
+    heatmap_size=[72, 96],
     num_output_channels=channel_cfg['num_output_channels'],
     num_joints=channel_cfg['dataset_joints'],
     dataset_channel=channel_cfg['dataset_channel'],
