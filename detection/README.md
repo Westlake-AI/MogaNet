@@ -5,7 +5,7 @@ For more details, see [Efficient Multi-order Gated Aggregation Network](https://
 
 ## Note
 
-Please note that we just simply follow the hyper-parameters of [PVT](https://github.com/whai362/PVT/tree/v2/detection) which may not be the optimal ones for MogaNet. Feel free to tune the hyper-parameters to get better performance.
+Please note that we simply follow the hyper-parameters of [PVT](https://github.com/whai362/PVT/tree/v2/detection) and [ConvNeXt](https://github.com/facebookresearch/ConvNeXt), which may not be the optimal ones for MogaNet. Feel free to tune the hyper-parameters to get better performance.
 
 ## Environement Setup
 
@@ -47,19 +47,19 @@ Prepare COCO according to the guidelines in [MMDetection](https://github.com/ope
 ## Results and models on COCO
 
 | Method | Backbone | Pretrain | Params | FLOPs | Lr schd | Aug | box mAP | mask mAP | Config | Download |
-|:---:|:---:|:---:|---|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| RetinaNet | MogaNet-XT | ImageNet-1K | 12.1M | 167.2G | 1x | No | 38.9 | - | [config](configs/mask_rcnn_moganet_xtiny_fpn_1x_coco.py) | log / model |
-| RetinaNet | MogaNet-T | ImageNet-1K | 14.4M | 173.4G | 1x | No | 40.9 | - | [config](configs/mask_rcnn_moganet_tiny_fpn_1x_coco.py) | log / model |
-| RetinaNet | MogaNet-S | ImageNet-1K | 35.1M | 253.0G | 1x | No | 45.4 | - | [config](configs/mask_rcnn_moganet_small_fpn_1x_coco.py) | log / model |
-| RetinaNet | MogaNet-B | ImageNet-1K | 53.5M | 354.5G | 1x | No |  | - | [config](configs/mask_rcnn_moganet_base_fpn_1x_coco.py) | log / model |
-| RetinaNet | MogaNet-L | ImageNet-1K | 92.4M | 476.8G | 1x | No |  | - | [config](configs/mask_rcnn_moganet_large_fpn_1x_coco.py) | log / model |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| RetinaNet | MogaNet-XT | ImageNet-1K | 12.1M | 167.2G | 1x | No | 39.7 | - | [config](configs/mask_rcnn_moganet_xtiny_fpn_1x_coco.py) | log / model |
+| RetinaNet | MogaNet-T | ImageNet-1K | 14.4M | 173.4G | 1x | No | 41.4 | - | [config](configs/mask_rcnn_moganet_tiny_fpn_1x_coco.py) | log / model |
+| RetinaNet | MogaNet-S | ImageNet-1K | 35.1M | 253.0G | 1x | No | 45.8 | - | [config](configs/mask_rcnn_moganet_small_fpn_1x_coco.py) | log / model |
+| RetinaNet | MogaNet-B | ImageNet-1K | 53.5M | 354.5G | 1x | No | 47.7 | - | [config](configs/mask_rcnn_moganet_base_fpn_1x_coco.py) | log / model |
+| RetinaNet | MogaNet-L | ImageNet-1K | 92.4M | 476.8G | 1x | No | 48.7 | - | [config](configs/mask_rcnn_moganet_large_fpn_1x_coco.py) | log / model |
 | Mask R-CNN | MogaNet-XT | ImageNet-1K | 22.8M | 185.4G | 1x | No | 40.7 | 37.6 | [config](configs/retinanet_moganet_xtiny_fpn_1x_coco.py) | log / model |
 | Mask R-CNN | MogaNet-T | ImageNet-1K | 25.0M | 191.7G | 1x | No | 42.6 | 39.1 | [config](configs/retinanet_moganet_tiny_fpn_1x_coco.py) | log / model |
-| Mask R-CNN | MogaNet-S | ImageNet-1K | 45.0M | 271.6G | 1x | No | 46.1 | 41.8 | [config](configs/retinanet_moganet_small_fpn_1x_coco.py) | log / model |
-| Mask R-CNN | MogaNet-B | ImageNet-1K | 63.4M | 373.1G | 1x | No | 48.2 | 43.4 | [config](configs/retinanet_moganet_base_fpn_1x_coco.py) | log / model |
-| Mask R-CNN | MogaNet-L | ImageNet-1K | 102.1M | 495.3G | 1x | No |  |  | [config](configs/retinanet_moganet_large_fpn_1x_coco.py) | log / model |
+| Mask R-CNN | MogaNet-S | ImageNet-1K | 45.0M | 271.6G | 1x | No | 46.6 | 42.2 | [config](configs/retinanet_moganet_small_fpn_1x_coco.py) | log / model |
+| Mask R-CNN | MogaNet-B | ImageNet-1K | 63.4M | 373.1G | 1x | No | 49.0 | 43.8 | [config](configs/retinanet_moganet_base_fpn_1x_coco.py) | log / model |
+| Mask R-CNN | MogaNet-L | ImageNet-1K | 102.1M | 495.3G | 1x | No | 49.4 | 44.2 | [config](configs/retinanet_moganet_large_fpn_1x_coco.py) | log / model |
 
-**Notes**: All the models can also be downloaded by [**Baidu Cloud**](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) (z8mf). The params (M) and FLOPs (G) are measured by [get_flops](get_flops.sh) with 1280 $\times$ 800 resolutions.
+**Notes**: All the models can also be downloaded by [**Baidu Cloud**](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) (z8mf) at `MogaNet/COCO_Detection`. The params (M) and FLOPs (G) are measured by [get_flops](get_flops.sh) with 1280 $\times$ 800 resolutions.
 ```bash
 bash get_flops.sh /path/to/config --shape 1280 800
 ```
@@ -97,6 +97,7 @@ Our implementation is mainly based on the following codebases. We gratefully tha
 
 - [MMDetection](https://github.com/open-mmlab/mmdetection)
 - [PVT detection](https://github.com/whai362/PVT/tree/v2/detection)
+- [ConvNeXt](https://github.com/facebookresearch/ConvNeXt)
 - [PoolFormer](https://github.com/sail-sg/poolformer)
 
 <p align="right">(<a href="#top">back to top</a>)</p>

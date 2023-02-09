@@ -5,7 +5,7 @@ For more details, see [Efficient Multi-order Gated Aggregation Network](https://
 
 ## Note
 
-Please note that we just simply follow the hyper-parameters of [PVT](https://github.com/whai362/PVT/tree/v2/detection) and [Swin](https://github.com/microsoft/Swin-Transformer) which may not be the optimal ones for MogaNet. Feel free to tune the hyper-parameters to get better performance.
+Please note that we simply follow the hyper-parameters of [PVT](https://github.com/whai362/PVT/tree/v2/detection) and [Swin](https://github.com/microsoft/Swin-Transformer) which may not be the optimal ones for MogaNet. Feel free to tune the hyper-parameters to get better performance.
 
 ## Environement Setup
 
@@ -26,7 +26,7 @@ Prepare COCO according to the guidelines in [MMPose](https://github.com/open-mml
 
 ## Results and models on COCO
 
-**Notes**: All the models can also be downloaded by [**Baidu Cloud**](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) (z8mf). The params (M) and FLOPs (G) are measured by [get_flops](get_flops.sh) with 256 $\times$ 192 or 384 $\times$ 288 resolutions.
+**Notes**: All the models can also be downloaded by [**Baidu Cloud**](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) (z8mf) at `MogaNet/COCO_Pose`. The params (M) and FLOPs (G) are measured by [get_flops](get_flops.sh) with 256 $\times$ 192 or 384 $\times$ 288 resolutions.
 ```bash
 bash get_flops.sh /path/to/config --shape 256 192
 ```

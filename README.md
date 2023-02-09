@@ -98,10 +98,12 @@ This project is released under the [Apache 2.0 license](LICENSE).
 
 Our implementation is mainly based on the following codebases. We gratefully thank the authors for their wonderful works.
 
-- [pytorch-image-models](https://github.com/rwightman/pytorch-image-models)
-- [PoolFormer](https://github.com/sail-sg/poolformer)
-- [MMDetection](https://github.com/open-mmlab/mmdetection)
-- [MMSegmentation](https://github.com/open-mmlab/mmsegmentation)
+- [pytorch-image-models](https://github.com/rwightman/pytorch-image-models).
+- [PoolFormer](https://github.com/sail-sg/poolformer): Official PyTorch implementation of MetaFormer.
+- [ConvNeXt](https://github.com/facebookresearch/ConvNeXt): Official PyTorch implementation of ConvNeXt.
+- [MMDetection](https://github.com/open-mmlab/mmdetection): OpenMMLab Detection Toolbox and Benchmark.
+- [MMSegmentation](https://github.com/open-mmlab/mmsegmentation): OpenMMLab Semantic Segmentation Toolbox and Benchmark.
+- [MMPose](https://github.com/open-mmlab/mmpose): OpenMMLab Pose Estimation Toolbox and Benchmark.
 
 ## Citation
 

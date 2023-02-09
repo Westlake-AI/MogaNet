@@ -40,3 +40,4 @@ lr_config = dict(_delete_=True, policy='poly',
 
 # By default, models are trained on 8 GPUs with 2 images per GPU for bs16
 data = dict(samples_per_gpu=2)
+evaluation = dict(save_best='auto')

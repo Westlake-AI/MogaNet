@@ -6,7 +6,7 @@ evaluation = dict(interval=10, metric='mAP', save_best='AP')
 
 optimizer = dict(
     type='Adam',
-    lr=1e-3,
+    lr=1e-3,  # lr=5e-4,
 )
 optimizer_config = dict(grad_clip=None)
 # learning policy
@@ -57,8 +57,8 @@ model = dict(
         modulate_kernel=11))
 
 data_cfg = dict(
-    image_size=[192, 256],
-    heatmap_size=[48, 64],
+    image_size=[288, 384],
+    heatmap_size=[72, 96],
     num_output_channels=channel_cfg['num_output_channels'],
     num_joints=channel_cfg['dataset_joints'],
     dataset_channel=channel_cfg['dataset_channel'],
@@ -148,3 +148,6 @@ data = dict(
         pipeline=test_pipeline,
         dataset_info={{_base_.dataset_info}}),
 )
+
+# # fp16 settings
+# fp16 = dict(loss_scale='dynamic')

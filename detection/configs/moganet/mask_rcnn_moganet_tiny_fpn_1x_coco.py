@@ -14,7 +14,7 @@ model = dict(
         init_cfg=dict(
             type='Pretrained', 
             checkpoint=\
-                'https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz224_8xbs128_ep300.pth.tar', 
+                'https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz224_8xbs128_ep300.pth.tar',
             ),
         ),
     neck=dict(
@@ -23,5 +23,11 @@ model = dict(
         out_channels=256,
         num_outs=5))
 # optimizer
-optimizer = dict(_delete_=True, type='AdamW', lr=0.0002, weight_decay=0.0001)
+optimizer = dict(_delete_=True, type='AdamW', lr=0.0002, betas=(0.9, 0.999), weight_decay=0.05,
+                 paramwise_cfg=dict(custom_keys={'layer_scale': dict(decay_mult=0.),
+                                                 'scale': dict(decay_mult=0.),
+                                                 'norm': dict(decay_mult=0.)}))
 optimizer_config = dict(grad_clip=None)
+
+checkpoint_config = dict(interval=1, max_keep_ckpts=1)
+evaluation = dict(save_best='auto')

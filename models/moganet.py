@@ -717,6 +717,7 @@ class MogaNet(nn.Module):
     def no_weight_decay(self):
         return dict()
 
+    @torch.jit.ignore
     def get_classifier(self):
         return self.head
 
@@ -750,7 +751,10 @@ class MogaNet(nn.Module):
             return outs
         else:
             # output only the last layer for image classification
-            return x.mean(dim=[2, 3])
+            return x
+
+    def forward_head(self, x):
+        return self.head(x.mean(dim=[2, 3]))
 
     def forward(self, x):
         x = self.forward_features(x)
@@ -759,8 +763,7 @@ class MogaNet(nn.Module):
             return x
         else:
             # for image classification
-            x = self.head(x)
-            return x
+            return self.forward_head(x)
 
 
 def _cfg(url='', **kwargs):

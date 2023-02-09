@@ -721,13 +721,13 @@ def train_one_epoch(epoch: int,
         if not args.prefetcher:
             input, target = input.cuda(), target.cuda()
             if mixup_fn is not None:
-                input_mix, target_mix = mixup_fn(input, target)
+                input, target = mixup_fn(input, target)
         if args.channels_last:
             input = input.contiguous(memory_format=torch.channels_last)
 
         with amp_autocast():
-            output = model(input_mix)
-            loss = loss_fn(output, target_mix)
+            output = model(input)
+            loss = loss_fn(output, target)
             if torch.any(torch.isnan(loss)) or torch.any(torch.isinf(loss)):
                 raise ValueError("Inf or nan loss value: use fp32 training instead!")
 
