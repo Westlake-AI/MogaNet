@@ -20,7 +20,7 @@ Note: Since we write [MogaNet backbone code](../models/moganet.py) of detection,
 
 ## Data preparation
 
-Prepare COCO according to the guidelines in [MMPose](https://github.com/open-mmlab/mmpose/).
+Download [COCO2017](https://cocodataset.org/#download) and prepare COCO experiments according to the guidelines in [MMPose](https://github.com/open-mmlab/mmpose/).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

@@ -1,6 +1,6 @@
 # Applying MogaNet to Semantic Segmentation
 
-This repo is a PyTorch implementation of applying **MogaNet** to semantic segmentation on ADE20K. The code is based on [MMSegmentation](https://github.com/open-mmlab/mmsegmentation/tree/v0.29.1).
+This repo is a PyTorch implementation of applying **MogaNet** to semantic segmentation with [Semantic FPN](https://arxiv.org/abs/1901.02446) and [UperNet](https://arxiv.org/abs/1505.04597) on [ADE20K](https://arxiv.org/abs/1608.05442). The code is based on [MMSegmentation](https://github.com/open-mmlab/mmsegmentation/tree/v0.29.1).
 For more details, see [Efficient Multi-order Gated Aggregation Network](https://arxiv.org/abs/2211.03295) (arXiv 2022).
 
 ## Note
@@ -26,7 +26,7 @@ Prepare ADE20K according to the [guidelines](https://github.com/open-mmlab/mmseg
 
 ## Results and models on ADE20K
 
-**Notes**: All the models are evaluated at a single scale (SS), you can modify `test_pipeline` to evaluate the multi-scale performance (MS). The trained models can also be downloaded by [**Baidu Cloud**](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) (z8mf) at `MogaNet/ADE20K_Segmentation`. The params (M) and FLOPs (G) are measured by [get_flops](get_flops.sh) with 2048 $\times$ 512 resolutions.
+**Notes**: All the models are evaluated at a single scale (SS), you can modify `test_pipeline` in config files to evaluate the multi-scale performance (MS). The trained models can also be downloaded by [**Baidu Cloud**](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) (z8mf) at `MogaNet/ADE20K_Segmentation`. The params (M) and FLOPs (G) are measured by [get_flops](get_flops.sh) with 2048 $\times$ 512 resolutions.
 ```bash
 bash get_flops.sh /path/to/config --shape 2048 512
 ```
@@ -35,21 +35,21 @@ bash get_flops.sh /path/to/config --shape 2048 512
 
 | Method | Backbone | Pretrain | Params | FLOPs | Iters | mIoU | mAcc | Config | Download |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| Semantic FPN | MogaNet-XT | ImageNet-1K | 6.9M | 101.4G | 80K | 40.3 | 52.4 | [config](configs/sem_fpn/moganet/fpn_moganet_xtiny_80k_ade20k.py) | log / model |
-| Semantic FPN | MogaNet-T | ImageNet-1K | 9.1M | 107.8G | 80K | 43.1 | 55.4 | [config](configs/sem_fpn/moganet/fpn_moganet_tiny_80k_ade20k.py) | log / model |
-| Semantic FPN | MogaNet-S | ImageNet-1K | 29.1M | 189.7G | 80K | 47.7 | 59.8 | [config](configs/sem_fpn/moganet/fpn_moganet_small_80k_ade20k.py) | log / model |
-| Semantic FPN | MogaNet-B | ImageNet-1K | 47.5M | 293.6G | 80K | 49.3 | 61.6 | [config](configs/sem_fpn/moganet/fpn_moganet_base_80k_ade20k.py) | log / model |
-| Semantic FPN | MogaNet-L | ImageNet-1K | 86.2M | 418.7G | 80K | 50.2 | 63.0 | [config](configs/sem_fpn/moganet/fpn_moganet_large_80k_ade20k.py) | log / model |
+| Semantic FPN | MogaNet-XT | ImageNet-1K | 6.9M | 101.4G | 80K | 40.3 | 52.4 | [config](configs/sem_fpn/moganet/fpn_moganet_xtiny_80k_ade20k.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/fpn_moganet_xtiny_80k_ade20k.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/fpn_moganet_xtiny_80k_ade20k.pth) |
+| Semantic FPN | MogaNet-T | ImageNet-1K | 9.1M | 107.8G | 80K | 43.1 | 55.4 | [config](configs/sem_fpn/moganet/fpn_moganet_tiny_80k_ade20k.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/fpn_moganet_tiny_80k_ade20k.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/fpn_moganet_tiny_80k_ade20k.pth) |
+| Semantic FPN | MogaNet-S | ImageNet-1K | 29.1M | 189.7G | 80K | 47.7 | 59.8 | [config](configs/sem_fpn/moganet/fpn_moganet_small_80k_ade20k.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/fpn_moganet_small_80k_ade20k.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/fpn_moganet_small_80k_ade20k.pth) |
+| Semantic FPN | MogaNet-B | ImageNet-1K | 47.5M | 293.6G | 80K | 49.3 | 61.6 | [config](configs/sem_fpn/moganet/fpn_moganet_base_80k_ade20k.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/fpn_moganet_base_80k_ade20k.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/fpn_moganet_base_80k_ade20k.pth) |
+| Semantic FPN | MogaNet-L | ImageNet-1K | 86.2M | 418.7G | 80K | 50.2 | 63.0 | [config](configs/sem_fpn/moganet/fpn_moganet_large_80k_ade20k.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/fpn_moganet_large_80k_ade20k.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/fpn_moganet_large_80k_ade20k.pth) |
 
 ### MogaNet + UperNet
 
 | Method | Backbone | Pretrain | Params | FLOPs | Iters | mIoU | mAcc | Config | Download |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| UperNet | MogaNet-XT | ImageNet-1K | 30.4M | 855.7G | 160K | 42.2 | 55.1 | [config](configs/upernet/moganet/upernet_moganet_xtiny_512x512_160k_ade20k.py) | log / model |
-| UperNet | MogaNet-T | ImageNet-1K | 33.1M | 862.4G | 160K | 43.7 | 57.1 | [config](configs/upernet/moganet/upernet_moganet_tiny_512x512_160k_ade20k.py) | log / model |
-| UperNet | MogaNet-S | ImageNet-1K | 55.3M | 946.4G | 160K | 49.2 | 61.6 | [config](configs/upernet/moganet/upernet_moganet_small_512x512_160k_ade20k.py) | log / model |
-| UperNet | MogaNet-B | ImageNet-1K | 73.7M | 1050.4G | 160K | 50.1 | 63.4 | [config](configs/upernet/moganet/upernet_moganet_base_512x512_160k_ade20k.py) | log / model |
-| UperNet | MogaNet-L | ImageNet-1K | 113.2M | 1176.1G | 160K | 50.9 | 63.5 | [config](configs/upernet/moganet/upernet_moganet_large_512x512_160k_ade20k.py) | log / model |
+| UperNet | MogaNet-XT | ImageNet-1K | 30.4M | 855.7G | 160K | 42.2 | 55.1 | [config](configs/upernet/moganet/upernet_moganet_xtiny_512x512_160k_ade20k.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/upernet_moganet_xtiny_512x512_160k_ade20k.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/upernet_moganet_xtiny_512x512_160k_ade20k.pth) |
+| UperNet | MogaNet-T | ImageNet-1K | 33.1M | 862.4G | 160K | 43.7 | 57.1 | [config](configs/upernet/moganet/upernet_moganet_tiny_512x512_160k_ade20k.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/upernet_moganet_tiny_512x512_160k_ade20k.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/upernet_moganet_tiny_512x512_160k_ade20k.pth) |
+| UperNet | MogaNet-S | ImageNet-1K | 55.3M | 946.4G | 160K | 49.2 | 61.6 | [config](configs/upernet/moganet/upernet_moganet_small_512x512_160k_ade20k.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/upernet_moganet_small_512x512_160k_ade20k.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/upernet_moganet_small_512x512_160k_ade20k.pth) |
+| UperNet | MogaNet-B | ImageNet-1K | 73.7M | 1050.4G | 160K | 50.1 | 63.4 | [config](configs/upernet/moganet/upernet_moganet_base_512x512_160k_ade20k.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/upernet_moganet_base_512x512_160k_ade20k.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/upernet_moganet_base_512x512_160k_ade20k.pth) |
+| UperNet | MogaNet-L | ImageNet-1K | 113.2M | 1176.1G | 160K | 50.9 | 63.5 | [config](configs/upernet/moganet/upernet_moganet_large_512x512_160k_ade20k.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/upernet_moganet_large_512x512_160k_ade20k.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/upernet_moganet_large_512x512_160k_ade20k.pth) |
 
 ## Training
 

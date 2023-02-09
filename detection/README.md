@@ -1,6 +1,6 @@
 # Applying MogaNet to Object Detection
 
-This repo is a PyTorch implementation of applying **MogaNet** to object detaction and instance segmentation on COCO. The code is based on [MMDetection](https://github.com/open-mmlab/mmdetection/tree/v2.26.0).
+This repo is a PyTorch implementation of applying **MogaNet** to object detaction and instance segmentation with [Mask R-CNN](https://arxiv.org/abs/1703.06870) and [RetinaNet](https://arxiv.org/abs/1708.02002) on [COCO](https://arxiv.org/abs/1405.0312). The code is based on [MMDetection](https://github.com/open-mmlab/mmdetection/tree/v2.26.0).
 For more details, see [Efficient Multi-order Gated Aggregation Network](https://arxiv.org/abs/2211.03295) (arXiv 2022).
 
 ## Note
@@ -40,29 +40,36 @@ Note: Since we write [MogaNet backbone code](../models/moganet.py) of detection,
 
 ## Data preparation
 
-Prepare COCO according to the guidelines in [MMDetection](https://github.com/open-mmlab/mmdetection/).
+Download [COCO2017](https://cocodataset.org/#download) and prepare COCO experiments according to the guidelines in [MMDetection](https://github.com/open-mmlab/mmdetection/).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Results and models on COCO
 
-| Method | Backbone | Pretrain | Params | FLOPs | Lr schd | Aug | box mAP | mask mAP | Config | Download |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| RetinaNet | MogaNet-XT | ImageNet-1K | 12.1M | 167.2G | 1x | No | 39.7 | - | [config](configs/mask_rcnn_moganet_xtiny_fpn_1x_coco.py) | log / model |
-| RetinaNet | MogaNet-T | ImageNet-1K | 14.4M | 173.4G | 1x | No | 41.4 | - | [config](configs/mask_rcnn_moganet_tiny_fpn_1x_coco.py) | log / model |
-| RetinaNet | MogaNet-S | ImageNet-1K | 35.1M | 253.0G | 1x | No | 45.8 | - | [config](configs/mask_rcnn_moganet_small_fpn_1x_coco.py) | log / model |
-| RetinaNet | MogaNet-B | ImageNet-1K | 53.5M | 354.5G | 1x | No | 47.7 | - | [config](configs/mask_rcnn_moganet_base_fpn_1x_coco.py) | log / model |
-| RetinaNet | MogaNet-L | ImageNet-1K | 92.4M | 476.8G | 1x | No | 48.7 | - | [config](configs/mask_rcnn_moganet_large_fpn_1x_coco.py) | log / model |
-| Mask R-CNN | MogaNet-XT | ImageNet-1K | 22.8M | 185.4G | 1x | No | 40.7 | 37.6 | [config](configs/retinanet_moganet_xtiny_fpn_1x_coco.py) | log / model |
-| Mask R-CNN | MogaNet-T | ImageNet-1K | 25.0M | 191.7G | 1x | No | 42.6 | 39.1 | [config](configs/retinanet_moganet_tiny_fpn_1x_coco.py) | log / model |
-| Mask R-CNN | MogaNet-S | ImageNet-1K | 45.0M | 271.6G | 1x | No | 46.6 | 42.2 | [config](configs/retinanet_moganet_small_fpn_1x_coco.py) | log / model |
-| Mask R-CNN | MogaNet-B | ImageNet-1K | 63.4M | 373.1G | 1x | No | 49.0 | 43.8 | [config](configs/retinanet_moganet_base_fpn_1x_coco.py) | log / model |
-| Mask R-CNN | MogaNet-L | ImageNet-1K | 102.1M | 495.3G | 1x | No | 49.4 | 44.2 | [config](configs/retinanet_moganet_large_fpn_1x_coco.py) | log / model |
-
 **Notes**: All the models can also be downloaded by [**Baidu Cloud**](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) (z8mf) at `MogaNet/COCO_Detection`. The params (M) and FLOPs (G) are measured by [get_flops](get_flops.sh) with 1280 $\times$ 800 resolutions.
 ```bash
 bash get_flops.sh /path/to/config --shape 1280 800
 ```
+
+### MogaNet + RetinaNet
+
+| Method | Backbone | Pretrain | Params | FLOPs | Lr schd | box mAP | Config | Download |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| RetinaNet | MogaNet-XT | ImageNet-1K | 12.1M | 167.2G | 1x | 39.7 | [config](configs/retinanet_moganet_xtiny_fpn_1x_coco.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/retinanet_moganet_xtiny_fpn_1x_coco.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/retinanet_moganet_xtiny_fpn_1x_coco.pth) |
+| RetinaNet | MogaNet-T | ImageNet-1K | 14.4M | 173.4G | 1x | 41.4 | [config](configs/retinanet_moganet_tiny_fpn_1x_coco.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/retinanet_moganet_tiny_fpn_1x_coco.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/retinanet_moganet_tiny_fpn_1x_coco.pth) |
+| RetinaNet | MogaNet-S | ImageNet-1K | 35.1M | 253.0G | 1x | 45.8 | [config](configs/retinanet_moganet_small_fpn_1x_coco.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/retinanet_moganet_small_fpn_1x_coco.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/retinanet_moganet_small_fpn_1x_coco.pth) |
+| RetinaNet | MogaNet-B | ImageNet-1K | 53.5M | 354.5G | 1x | 47.7 | [config](configs/retinanet_moganet_base_fpn_1x_coco.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/retinanet_moganet_base_fpn_1x_coco.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/retinanet_moganet_base_fpn_1x_coco.pth) |
+| RetinaNet | MogaNet-L | ImageNet-1K | 92.4M | 476.8G | 1x | 48.7 | [config](configs/retinanet_moganet_large_fpn_1x_coco.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/retinanet_moganet_large_fpn_1x_coco.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/retinanet_moganet_large_fpn_1x_coco.pth) |
+
+### MogaNet + Mask R-CNN
+
+| Method | Backbone | Pretrain | Params | FLOPs | Lr schd | box mAP | mask mAP | Config | Download |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| Mask R-CNN | MogaNet-XT | ImageNet-1K | 22.8M | 185.4G | 1x | 40.7 | 37.6 | [config](configs/mask_rcnn_moganet_xtiny_fpn_1x_coco.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/mask_rcnn_moganet_xtiny_fpn_1x_coco.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/mask_rcnn_moganet_xtiny_fpn_1x_coco.pth) |
+| Mask R-CNN | MogaNet-T | ImageNet-1K | 25.0M | 191.7G | 1x | 42.6 | 39.1 | [config](configs/mask_rcnn_moganet_tiny_fpn_1x_coco.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/mask_rcnn_moganet_tiny_fpn_1x_coco.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/mask_rcnn_moganet_tiny_fpn_1x_coco.pth) |
+| Mask R-CNN | MogaNet-S | ImageNet-1K | 45.0M | 271.6G | 1x | 46.6 | 42.2 | [config](configs/mask_rcnn_moganet_small_fpn_1x_coco.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/mask_rcnn_moganet_small_fpn_1x_coco.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/mask_rcnn_moganet_small_fpn_1x_coco.pth) |
+| Mask R-CNN | MogaNet-B | ImageNet-1K | 63.4M | 373.1G | 1x | 49.0 | 43.8 | [config](configs/mask_rcnn_moganet_base_fpn_1x_coco.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/mask_rcnn_moganet_base_fpn_1x_coco.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/mask_rcnn_moganet_base_fpn_1x_coco.pth) |
+| Mask R-CNN | MogaNet-L | ImageNet-1K | 102.1M | 495.3G | 1x | 49.4 | 44.2 | [config](configs/mask_rcnn_moganet_large_fpn_1x_coco.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/mask_rcnn_moganet_large_fpn_1x_coco.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/mask_rcnn_moganet_large_fpn_1x_coco.pth) |
 
 ## Training
 

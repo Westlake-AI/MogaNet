@@ -38,10 +38,10 @@ We propose **MogaNet**, a new family of efficient ConvNets, to pursue informativ
 
 We plan to release implementations of MogaNet in a few months. Please watch us for the latest release. Currently, this repo is reimplemented according to our official implementations in [OpenMixup](https://github.com/Westlake-AI/openmixup/), and we are working on cleaning up experimental results and code implementations.
 
-- [x] **ImageNet-1K** Training and Validation Code [[here](#image-classification)]
-- [x] Downstream Transfer to **Object Detection and Instance Segmentation on COCO** [[here](detection/)]
-- [x] Downstream Transfer to **Semantic Segmentation on ADE20K** [[here](segmentation/)]
-- [x] Downstream Transfer to **2D Human Pose Estimation on COCO** [[here](pose_estimation/)]
+- [x] **ImageNet-1K** Training and Validation Code [[here](#image-classification)] [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-in1k-weights)]
+- [x] Downstream Transfer to **Object Detection and Instance Segmentation on COCO** [[code](detection/)] [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-det-weights)]
+- [x] Downstream Transfer to **Semantic Segmentation on ADE20K** [[code](segmentation/)] [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-seg-weights)]
+- [x] Downstream Transfer to **2D Human Pose Estimation on COCO** [[code](pose_estimation/)]
 - [x] Image Classification on Google Colab and Notebook Demo [[here](demo.ipynb)]
 
 ## Image Classification
