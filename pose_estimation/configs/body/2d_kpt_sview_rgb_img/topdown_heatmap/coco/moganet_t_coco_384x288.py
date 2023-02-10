@@ -38,7 +38,7 @@ model = dict(
         arch="tiny",  # modify 'arch' for various architectures
         init_value=1e-5,
         frozen_stages=1,
-        drop_path_rate=0.1,
+        drop_path_rate=0.15,
         stem_norm_cfg=norm_cfg,
         conv_norm_cfg=norm_cfg,
         out_indices=(0, 1, 2, 3),
@@ -148,3 +148,6 @@ data = dict(
         pipeline=test_pipeline,
         dataset_info={{_base_.dataset_info}}),
 )
+
+# fp16 settings
+fp16 = dict(loss_scale='dynamic')

@@ -181,6 +181,8 @@ parser.add_argument('--patience_epochs', type=int, default=10, metavar='N',
                     help='patience epochs for Plateau LR scheduler (default: 10')
 parser.add_argument('--decay_rate', '--dr', type=float, default=0.1, metavar='RATE',
                     help='LR decay rate (default: 0.1)')
+parser.add_argument('--update_freq', type=int, default=1,
+                    help='gradient accumulation intervals (default: 1)')
 
 # Augmentation & regularization parameters
 parser.add_argument('--no_aug', action='store_true', default=False,

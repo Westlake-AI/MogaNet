@@ -35,12 +35,14 @@ bash get_flops.sh /path/to/config --shape 256 192
 
 | Backbone | Pretrain | Input Size | Params | FLOPs | Epoch | mAP | Config | Download |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| MogaNet-T | ImageNet-1K | 256x192 | 8.1M | 2.15G | 210 |  | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_t_coco_256x192.py) | log / model |
-| MogaNet-T | ImageNet-1K | 384x288 | 8.1M | 4.85G | 210 |  | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_t_coco_384x288.py) | log / model |
-| MogaNet-S | ImageNet-1K | 256x192 | 29.0M | 5.99G | 210 |  | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_s_coco_256x192.py) | log / model |
-| MogaNet-S | ImageNet-1K | 384x288 | 29.0M | 13.48G | 210 |  | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_s_coco_384x288.py) | log / model |
-| MogaNet-B | ImageNet-1K | 256x192 | 47.4M | 10.85G | 210 |  | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_b_coco_256x192.py) | log / model |
-| MogaNet-B | ImageNet-1K | 384x288 | 47.4M | 24.42G | 210 |  | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_b_coco_384x288.py) | log / model |
+| MogaNet-XT | ImageNet-1K | 256x192 | 5.6M | 1.84G | 210 |  | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_xt_coco_256x192.py) | log / model |
+| MogaNet-XT | ImageNet-1K | 384x288 | 5.6M | 4.15G | 210 |  | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_xt_coco_384x288.py) | log / model |
+| MogaNet-T | ImageNet-1K | 256x192 | 8.1M | 2.15G | 210 | 73.2 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_t_coco_256x192.py) | log / model |
+| MogaNet-T | ImageNet-1K | 384x288 | 8.1M | 4.85G | 210 | 75.7 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_t_coco_384x288.py) | log / model |
+| MogaNet-S | ImageNet-1K | 256x192 | 29.0M | 5.99G | 210 | 74.8 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_s_coco_256x192.py) | log / model |
+| MogaNet-S | ImageNet-1K | 384x288 | 29.0M | 13.48G | 210 | 76.4 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_s_coco_384x288.py) | log / model |
+| MogaNet-B | ImageNet-1K | 256x192 | 47.4M | 10.85G | 210 | 75.3 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_b_coco_256x192.py) | log / model |
+| MogaNet-B | ImageNet-1K | 384x288 | 47.4M | 24.42G | 210 | 77.3 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_b_coco_384x288.py) | log / model |
 
 ## Training
 
