@@ -26,23 +26,23 @@ Download [COCO2017](https://cocodataset.org/#download) and prepare COCO experime
 
 ## Results and models on COCO
 
-**Notes**: All the models can also be downloaded by [**Baidu Cloud**](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) (z8mf) at `MogaNet/COCO_Pose`. The params (M) and FLOPs (G) are measured by [get_flops](get_flops.sh) with 256 $\times$ 192 or 384 $\times$ 288 resolutions.
+**Notes**: All the models use ImageNet-1K pre-trained backbones and can also be downloaded by [**Baidu Cloud**](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) (z8mf) at `MogaNet/COCO_Pose`. The params (M) and FLOPs (G) are measured by [get_flops](get_flops.sh) with 256 $\times$ 192 or 384 $\times$ 288 resolutions.
 ```bash
 bash get_flops.sh /path/to/config --shape 256 192
 ```
 
 ### MogaNet + Top-Down
 
-| Backbone | Pretrain | Input Size | Params | FLOPs | Epoch | mAP | Config | Download |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| MogaNet-XT | ImageNet-1K | 256x192 | 5.6M | 1.84G | 210 |  | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_xt_coco_256x192.py) | log / model |
-| MogaNet-XT | ImageNet-1K | 384x288 | 5.6M | 4.15G | 210 |  | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_xt_coco_384x288.py) | log / model |
-| MogaNet-T | ImageNet-1K | 256x192 | 8.1M | 2.15G | 210 | 73.2 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_t_coco_256x192.py) | log / model |
-| MogaNet-T | ImageNet-1K | 384x288 | 8.1M | 4.85G | 210 | 75.7 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_t_coco_384x288.py) | log / model |
-| MogaNet-S | ImageNet-1K | 256x192 | 29.0M | 5.99G | 210 | 74.8 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_s_coco_256x192.py) | log / model |
-| MogaNet-S | ImageNet-1K | 384x288 | 29.0M | 13.48G | 210 | 76.4 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_s_coco_384x288.py) | log / model |
-| MogaNet-B | ImageNet-1K | 256x192 | 47.4M | 10.85G | 210 | 75.3 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_b_coco_256x192.py) | log / model |
-| MogaNet-B | ImageNet-1K | 384x288 | 47.4M | 24.42G | 210 | 77.3 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_b_coco_384x288.py) | log / model |
+| Backbone | Input Size | Params | FLOPs | AP | AP<sup>50</sup> | AP<sup>75</sup> | AR | AR<sup>M</sup> | AR<sup>L</sup> | Config | Download |
+|---|:---:|:---:|:---:|:---:|---|---|---|---|---|:---:|:---:|
+| MogaNet-XT | 256x192 | 5.6M | 1.8G | 72.1 | 89.7 | 80.1 | 77.7 | 73.6 | 83.6 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_xt_coco_256x192.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_xt_coco_256x192.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_xt_coco_256x192.pth) |
+| MogaNet-XT | 384x288 | 5.6M | 4.2G | 74.7 | 90.1 | 81.3 | 79.9 | 75.9 | 85.9 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_xt_coco_384x288.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_xt_coco_384x288.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_xt_coco_384x288.pth) |
+| MogaNet-T | 256x192 | 8.1M | 2.2G | 73.2 | 90.1 | 81.0 | 78.8 | 74.9 | 84.4 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_t_coco_256x192.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_t_coco_256x192.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_t_coco_256x192.pth) |
+| MogaNet-T | 384x288 | 8.1M | 4.9G | 75.7 | 90.6 | 82.6 | 80.9 | 76.8 | 86.7 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_t_coco_384x288.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_t_coco_384x288.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_t_coco_384x288.pth) |
+| MogaNet-S | 256x192 | 29.0M | 6.0G | 74.8 | 90.7 | 82.8 | 80.1 | 75.7 | 86.3 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_s_coco_256x192.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_s_coco_256x192.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_s_coco_256x192.pth) |
+| MogaNet-S | 384x288 | 29.0M | 13.5G | 76.4 | 91.0 | 83.3 | 81.4 | 77.1 | 87.7 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_s_coco_384x288.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_s_coco_384x288.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_s_coco_384x288.pth) |
+| MogaNet-B | 256x192 | 47.4M | 10.9G | 75.3 | 90.9 | 83.3 | 80.7 | 76.4 | 87.1 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_b_coco_256x192.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_b_coco_256x192.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_b_coco_256x192.pth) |
+| MogaNet-B | 384x288 | 47.4M | 24.4G | 77.3 | 91.4 | 84.0 | 82.2 | 77.9 | 88.5 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_b_coco_384x288.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_b_coco_384x288.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_b_coco_384x288.pth) |
 
 ## Training
 
@@ -72,6 +72,7 @@ If you find this repository helpful, please consider citing:
 ```
 
 ## Acknowledgment
+
 Our segmentation implementation is mainly based on the following codebases. We gratefully thank the authors for their wonderful works.
 
 - [MMPose](https://github.com/open-mmlab/mmpose)
