@@ -792,12 +792,7 @@ model_urls = {
     "moganet_small_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_small_sz224_8xbs128_ep300.pth.tar",
     "moganet_base_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_base_sz224_8xbs128_ep300.pth.tar",
     "moganet_large_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_large_sz224_8xbs64_ep300.pth.tar",
-    "moganet_xlarge_1k": "",
-    "moganet_tiny_21k": "",
-    "moganet_small_21k": "",
-    "moganet_base_21k": "",
-    "moganet_large_21k": "",
-    "moganet_xlarge_21k": "",
+    "moganet_xlarge_1k": "https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xlarge_sz224_8xbs64_ep300.pth.tar",
 }
 
 @register_model
