@@ -115,8 +115,6 @@ venv.bak/
 bash
 data
 data_set
-detection/data
-segmentation/data
 output/
 work_dirs/
 workspace/
@@ -127,12 +125,13 @@ pretrains
 *.pth
 
 *.swp
-source.sh
-tensorboard.sh
 .DS_Store
 *.json
 
+results
+figs
+.vscode
+.ipynb_checkpoints
+
 # temp
-# detection
-# segmentation
-# video_prediction
+configs/kitticaltech/simvp
