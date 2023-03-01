@@ -11,7 +11,6 @@ model = dict(
         type='MogaNet_feat',
         arch='large',
         drop_path_rate=0.3,
-        frozen_stages=1,
         init_cfg=dict(
             type='Pretrained', 
             checkpoint=\

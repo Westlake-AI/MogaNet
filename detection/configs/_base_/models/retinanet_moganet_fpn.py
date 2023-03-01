@@ -10,8 +10,6 @@ model = dict(
         stem_norm_cfg=dict(type='BN', requires_grad=True),
         conv_norm_cfg=dict(type='BN', requires_grad=True),
         out_indices=(0, 1, 2, 3),
-        frozen_stages=1,
-        norm_eval=True,
     ),
     neck=dict(
         type='FPN',

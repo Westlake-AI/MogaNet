@@ -37,7 +37,6 @@ model = dict(
         type='MogaNet_feat',
         arch="tiny",  # modify 'arch' for various architectures
         init_value=1e-5,
-        frozen_stages=1,
         drop_path_rate=0.15,
         stem_norm_cfg=norm_cfg,
         conv_norm_cfg=norm_cfg,

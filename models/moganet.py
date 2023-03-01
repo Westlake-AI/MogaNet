@@ -520,6 +520,8 @@ class MogaNet(nn.Module):
             in this repo to facilitate code migration. Defaults to False.
         fork_feat (bool): Whether to output features of the 4 stages for dense
             prediction tasks in mmdetection and mmsegmentation. Defaults to False.
+        frozen_stages (int): Stages to be frozen (stop grad and set eval mode).
+            -1 means not freezing any parameters. Defaults to -1.
         init_cfg (dict): Init config dict for mmdetection and mmsegmentation
             to load pretrained weights. Defaults to None.
         pretrained (str): Pretrained path for mmdetection and mmsegmentation
@@ -570,6 +572,7 @@ class MogaNet(nn.Module):
                  attn_final_dilation=True,
                  attn_force_fp32=False,
                  fork_feat=False,
+                 frozen_stages=-1,
                  init_cfg=None,
                  pretrained=None,
                  **kwargs):
@@ -594,6 +597,7 @@ class MogaNet(nn.Module):
         self.use_layer_norm = stem_norm_type == 'LN'
         assert len(patchembed_types) == self.num_stages
         self.fork_feat = fork_feat
+        self.frozen_stages = frozen_stages
 
         total_depth = sum(self.depths)
         dpr = [
@@ -709,6 +713,22 @@ class MogaNet(nn.Module):
             # show for debug
             # print('missing_keys: ', missing_keys)
             # print('unexpected_keys: ', unexpected_keys)
+
+    def _freeze_stages(self):
+        for i in range(0, self.frozen_stages + 1):
+            # freeze patch embed
+            m = getattr(self, f'patch_embed{i + 1}')
+            m.eval()
+            for param in m.parameters():
+                param.requires_grad = False
+            # freeze blocks
+            m = getattr(self, f'blocks{i + 1}')
+            m.eval()
+            for param in m.parameters():
+                param.requires_grad = False
+            # freeze norm
+            m = getattr(self, f'norm{i + 1}')
+            m.eval()
 
     def freeze_patch_emb(self):
         self.patch_embed1.requires_grad = False
