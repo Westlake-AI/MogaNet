@@ -121,7 +121,7 @@ def load_data(batch_size, val_batch_size, data_root,
         }
         input_handle = DataProcess(input_param)
         train_data, train_idx = input_handle.load_data('train')
-        test_data, test_idx = input_handle.load_data('val')
+        test_data, test_idx = input_handle.load_data('test')
     elif os.path.exists(osp.join(data_root, 'kitticaltech_npy')):
         train_data = np.load(osp.join(data_root, 'kitticaltech_npy', 'train_data.npy'))
         train_idx = np.load(osp.join(data_root, 'kitticaltech_npy', 'train_idx.npy'))
@@ -144,7 +144,7 @@ def load_data(batch_size, val_batch_size, data_root,
                                                   pin_memory=True, drop_last=True,
                                                   num_workers=num_workers)
     dataloader_test = torch.utils.data.DataLoader(test_set,
-                                                  batch_size=1, shuffle=False,
+                                                  batch_size=val_batch_size, shuffle=False,
                                                   pin_memory=True, drop_last=True,
                                                   num_workers=num_workers)
 

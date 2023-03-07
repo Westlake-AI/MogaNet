@@ -71,10 +71,12 @@ class ClimateDataset(Dataset):
             data_name = data_name[0]
 
         if data_name != 'uv10':
-            # input_datasets = []
-            # for key in data_name:
-            dataset = xr.open_mfdataset(
-                data_root+'/{}/*.nc'.format(data_map[data_name]), combine='by_coords')
+            try:
+                dataset = xr.open_mfdataset(
+                    data_root+'/{}/*.nc'.format(data_map[data_name]), combine='by_coords')
+            except AttributeError:
+                assert False and 'Please install the latest xarray, e.g.,' \
+                                 'pip install  git+https://github.com/pydata/xarray/@v2022.03.0'
             dataset = dataset.sel(time=slice(*training_time))
             dataset = dataset.isel(time=slice(None, -1, step))
             if self.time is None:
@@ -93,8 +95,13 @@ class ClimateDataset(Dataset):
         elif data_name == 'uv10':
             input_datasets = []
             for key in ['u10', 'v10']:
-                dataset = xr.open_mfdataset(
-                    data_root+'/{}/*.nc'.format(data_map[key]), combine='by_coords')
+                try:
+                    dataset = xr.open_mfdataset(
+                        data_root+'/{}/*.nc'.format(data_map[key]), combine='by_coords')
+                except AttributeError:
+                    assert False and 'Please install the latest xarray, e.g.,' \
+                                     'pip install git+https://github.com/pydata/xarray/@v2022.03.0,' \
+                                     'pip install netcdf4 h5netcdf dask'
                 dataset = dataset.sel(time=slice(*training_time))
                 dataset = dataset.isel(time=slice(None, -1, step))
                 if self.time is None:
@@ -109,7 +116,7 @@ class ClimateDataset(Dataset):
                     self.V = np.stack([x, y, z]).reshape(3, 32*64).T
                 input_datasets.append(dataset.get(key).values[:, np.newaxis, :, :])
             self.data = np.concatenate(input_datasets, axis=1)
-        
+
         # uv10
         if len(self.data.shape) == 5:
             self.data = self.data.squeeze(1)
@@ -142,14 +149,15 @@ class ClimateDataset(Dataset):
 def load_data(batch_size,
               val_batch_size,
               data_root,
-              num_workers=2,
-              data_name=['t'],
-              train_time=['2010', '2015'],
+              num_workers=4,
+              data_name='t2m',
+              train_time=['1979', '2015'],
               val_time=['2016', '2016'],
               test_time=['2017', '2018'],
               idx_in=[-11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0],
               idx_out=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-              step=1):
+              step=1,
+              **kwargs):
 
     weather_dataroot = osp.join(data_root, 'weather')
 
@@ -180,12 +188,12 @@ def load_data(batch_size,
                                                    batch_size=batch_size, shuffle=True,
                                                    pin_memory=True, drop_last=True,
                                                    num_workers=num_workers)
-    dataloader_vali = torch.utils.data.DataLoader(validation_set,
+    dataloader_vali = torch.utils.data.DataLoader(test_set, # validation_set,
                                                   batch_size=val_batch_size, shuffle=False,
                                                   pin_memory=True, drop_last=True,
                                                   num_workers=num_workers)
     dataloader_test = torch.utils.data.DataLoader(test_set,
-                                                  batch_size=1, shuffle=False,
+                                                  batch_size=val_batch_size, shuffle=False,
                                                   pin_memory=True, drop_last=True,
                                                   num_workers=num_workers)
 
@@ -195,8 +203,8 @@ def load_data(batch_size,
 if __name__ == '__main__':
     dataloader_train, _, _ = load_data(batch_size=128,
                                        val_batch_size=128,
-                                       data_root='./data',
-                                       num_workers=4, data_name=['t'],
+                                       data_root='../../data',
+                                       num_workers=4, data_name='t2m',
                                        train_time=['1979', '2015'],
                                        val_time=['2016', '2016'],
                                        test_time=['2017', '2018'],

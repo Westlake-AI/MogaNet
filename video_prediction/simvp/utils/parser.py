@@ -15,18 +15,23 @@ def create_parser():
     parser.add_argument('--use_gpu', default=True, type=bool)
     parser.add_argument('--gpu', default=0, type=int)
     parser.add_argument('--seed', default=42, type=int)
+    parser.add_argument('--fps', action='store_true', default=False,
+                        help='Whether to measure inference speed (FPS)')
+    parser.add_argument('--resume_from', type=str, default=None, help='the checkpoint file to resume from')
+    parser.add_argument('--auto_resume', action='store_true', default=False,
+                        help='When training was interupted, resume from the latest checkpoint')
+    parser.add_argument('--test', action='store_true', default=False, help='Only performs testing')
 
     # dataset parameters
-    parser.add_argument('--batch_size', '-b', default=16, type=int, help="Training batch size")
-    parser.add_argument('--val_batch_size', '-vb', default=4, type=int, help="Validation batch size")
+    parser.add_argument('--batch_size', '-b', default=16, type=int, help='Training batch size')
+    parser.add_argument('--val_batch_size', '-vb', default=4, type=int, help='Validation batch size')
     parser.add_argument('--num_workers', default=8, type=int)
     parser.add_argument('--data_root', default='./data/')
     parser.add_argument('--dataname', '-d', default='mmnist', type=str,
-                        choices=['mmnist', 'kitticaltech', 'kth', 'kth40', 'taxibj', 'weather'],
                         help='Dataset name (default: "mmnist")')
-    parser.add_argument('--pre_seq_length', default=None, type=int, help="Sequence length before prediction")
-    parser.add_argument('--aft_seq_length', default=None, type=int, help="Sequence length after prediction")
-    parser.add_argument('--total_length', default=None, type=int, help="Total Sequence length for prediction")
+    parser.add_argument('--pre_seq_length', default=None, type=int, help='Sequence length before prediction')
+    parser.add_argument('--aft_seq_length', default=None, type=int, help='Sequence length after prediction')
+    parser.add_argument('--total_length', default=None, type=int, help='Total Sequence length for prediction')
 
     # method parameters
     parser.add_argument('--method', '-m', default='SimVP', type=str,
@@ -59,8 +64,8 @@ def create_parser():
     parser.add_argument('--lr', default=1e-3, type=float, help='Learning rate')
     parser.add_argument('--lr_k_decay', type=float, default=1.0,
                         help='learning rate k-decay for cosine/poly (default: 1.0)')
-    parser.add_argument('--warmup_lr', type=float, default=1e-6, metavar='LR',
-                        help='warmup learning rate (default: 1e-6)')
+    parser.add_argument('--warmup_lr', type=float, default=1e-5, metavar='LR',
+                        help='warmup learning rate (default: 1e-5)')
     parser.add_argument('--min_lr', type=float, default=1e-6, metavar='LR',
                         help='lower lr bound for cyclic schedulers that hit 0 (1e-5)')
     parser.add_argument('--final_div_factor', type=float, default=1e4,

@@ -4,7 +4,7 @@ import os.path as osp
 import warnings
 warnings.filterwarnings('ignore')
 
-from simvp.api import NodDistExperiment
+from simvp.api import NonDistExperiment
 from simvp.utils import create_parser, load_config, update_config
 
 try:
@@ -25,9 +25,9 @@ if __name__ == '__main__':
     cfg_path = osp.join('./configs', args.dataname, f'{args.method}.py') \
         if args.config_file is None else args.config_file
     config = update_config(config, load_config(cfg_path),
-                           exclude_keys=['batch_size', 'val_batch_size'])
+                           exclude_keys=['batch_size', 'val_batch_size', 'sched'])
 
-    exp = NodDistExperiment(args)
+    exp = NonDistExperiment(args)
     print('>'*35 + ' training ' + '<'*35)
     exp.train()
 
