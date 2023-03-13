@@ -46,9 +46,9 @@ Download [COCO2017](https://cocodataset.org/#download) and prepare COCO experime
 
 ## Results and models on COCO
 
-**Notes**: All the models can also be downloaded by [**Baidu Cloud**](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) (z8mf) at `MogaNet/COCO_Detection`. The params (M) and FLOPs (G) are measured by [get_flops](get_flops.sh) with 1280 $\times$ 800 resolutions.
+**Notes**: All the models can also be downloaded by [**Baidu Cloud**](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) (z8mf) at `MogaNet/COCO_Detection`. The params (M) and FLOPs (G) are measured by [get_flops](get_flops.py) with 1280 $\times$ 800 resolutions.
 ```bash
-bash get_flops.sh /path/to/config --shape 1280 800
+python get_flops.py /path/to/config --shape 1280 800
 ```
 
 ### MogaNet + RetinaNet

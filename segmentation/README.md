@@ -26,9 +26,9 @@ Prepare ADE20K according to the [guidelines](https://github.com/open-mmlab/mmseg
 
 ## Results and models on ADE20K
 
-**Notes**: All the models are evaluated at a single scale (SS), you can modify `test_pipeline` in config files to evaluate the multi-scale performance (MS). The trained models can also be downloaded by [**Baidu Cloud**](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) (z8mf) at `MogaNet/ADE20K_Segmentation`. The params (M) and FLOPs (G) are measured by [get_flops](get_flops.sh) with 2048 $\times$ 512 resolutions.
+**Notes**: All the models are evaluated at a single scale (SS), you can modify `test_pipeline` in config files to evaluate the multi-scale performance (MS). The trained models can also be downloaded by [**Baidu Cloud**](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) (z8mf) at `MogaNet/ADE20K_Segmentation`. The params (M) and FLOPs (G) are measured by [get_flops](get_flops.py) with 2048 $\times$ 512 resolutions.
 ```bash
-bash get_flops.sh /path/to/config --shape 2048 512
+python get_flops.py /path/to/config --shape 2048 512
 ```
 
 ### MogaNet + Semantic FPN
