@@ -5,6 +5,7 @@ from functools import partial
 import torch
 
 from mmpose.apis.inference import init_pose_model
+import mmpose_custom.models.backbones  # register custom architectures
 
 try:
     from mmcv.cnn import get_model_complexity_info

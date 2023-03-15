@@ -18,6 +18,7 @@ from mmpose.apis import init_random_seed, train_model
 from mmpose.datasets import build_dataset
 from mmpose.models import build_posenet
 from mmpose.utils import collect_env, get_root_logger, setup_multi_processes
+import mmpose_custom.models.backbones  # register custom architectures
 
 import sys
 sys.path.append('../')

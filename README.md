@@ -15,7 +15,7 @@
 <a href="https://colab.research.google.com/github/Westlake-AI/MogaNet/blob/main/demo.ipynb" alt="Colab">
     <img src="https://colab.research.google.com/assets/colab-badge.svg" /></a>
 <a href="https://huggingface.co/MogaNet" alt="Huggingface">
-    <img src="https://img.shields.io/badge/huggaingface-MogaNet-blueviolet" /></a>
+    <img src="https://img.shields.io/badge/huggingface-MogaNet-blueviolet" /></a>
 </p>
 
 <p align="center">
@@ -43,7 +43,8 @@ We plan to release implementations of MogaNet in a few months. Please watch us f
 - [x] **ImageNet-1K** Training and Validation Code [[here](#image-classification)] [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-in1k-weights)] [[Hugging Face 🤗](https://huggingface.co/MogaNet)]
 - [x] Downstream Transfer to **Object Detection and Instance Segmentation on COCO** [[code](detection/)] [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-det-weights)]
 - [x] Downstream Transfer to **Semantic Segmentation on ADE20K** [[code](segmentation/)] [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-seg-weights)]
-- [x] Downstream Transfer to **2D Human Pose Estimation on COCO** [[code](pose_estimation/)]
+- [x] Downstream Transfer to **2D Human Pose Estimation on COCO** [[code](pose_estimation/)] (baseline models are supported)
+- [ ] Downstream Transfer to **3D Human Pose Estimation** [[code](human_pose_3d/)] (baseline models will be supported)
 - [x] Image Classification on Google Colab and Notebook Demo [[here](demo.ipynb)]
 
 ## Image Classification

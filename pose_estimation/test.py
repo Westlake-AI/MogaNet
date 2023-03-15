@@ -15,6 +15,7 @@ from mmpose.apis import multi_gpu_test, single_gpu_test
 from mmpose.datasets import build_dataloader, build_dataset
 from mmpose.models import build_posenet
 from mmpose.utils import setup_multi_processes
+import mmpose_custom.models.backbones  # register custom architectures
 
 try:
     from mmcv.runner import wrap_fp16_model

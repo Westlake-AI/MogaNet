@@ -3,10 +3,16 @@ _base_ = [
     '../../../../_base_/datasets/coco.py'
 ]
 evaluation = dict(interval=10, metric='mAP', save_best='AP')
+checkpoint_config = dict(max_keep_ckpts=1)
 
 optimizer = dict(
-    type='Adam',
-    lr=5e-4,
+    type='AdamW',
+    lr=2e-3,
+    betas=(0.9, 0.999),
+    weight_decay=0.01,
+    paramwise_cfg=dict(
+        custom_keys={'relative_position_bias_table': dict(decay_mult=0.)}
+    )
 )
 optimizer_config = dict(grad_clip=None)
 # learning policy
@@ -27,44 +33,28 @@ channel_cfg = dict(
         0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
     ])
 
-# model settings
-pretrained = ('https://github.com/SwinTransformer/storage/releases/download'
-              '/v1.0.0/swin_base_patch4_window7_224_22k.pth')
+# please download ckpt from https://github.com/Sense-X/UniFormer/tree/main/image_classification
+pretrained = ('work_dirs/_official_ckpt_/uniformer/uniformer_base_in1k.pth')
 
+# model settings
 model = dict(
     type='TopDown',
     pretrained=pretrained,
     backbone=dict(
-        type='SwinTransformer',
-        embed_dims=128,
-        depths=[2, 2, 18, 2],
-        num_heads=[4, 8, 16, 32],
-        window_size=7,
-        mlp_ratio=4,
-        qkv_bias=True,
-        qk_scale=None,
-        drop_rate=0.,
-        attn_drop_rate=0.,
-        drop_path_rate=0.3,
-        patch_norm=True,
-        out_indices=(0, 1, 2, 3),
-        with_cp=False,
-        convert_weights=True,
+        type='UniFormer',
+        embed_dim=[64, 128, 320, 512],
+        layers=[3, 4, 8, 3],
+        head_dim=64,
+        drop_path_rate=0.2,
+        use_checkpoint=False,
+        windows=False,
+        hybrid=False
     ),
-    neck=dict(
-        type='FPN',
-        in_channels=[128, 256, 512, 1024],
-        start_level=0,
-        out_channels=256,
-        num_outs=4,
-        upsample_cfg=dict(mode='bilinear', align_corners=False)),
     keypoint_head=dict(
         type='TopdownHeatmapSimpleHead',
-        in_channels=256,
+        in_channels=512,
         out_channels=channel_cfg['num_output_channels'],
-        in_index=0,
-        num_deconv_layers=0,
-        extra=dict(final_conv_kernel=1, ),
+        in_index=3,
         loss_keypoint=dict(type='JointsMSELoss', use_target_weight=True)),
     train_cfg=dict(),
     test_cfg=dict(
@@ -139,10 +129,10 @@ test_pipeline = val_pipeline
 
 data_root = 'data/coco'
 data = dict(
-    samples_per_gpu=32,
+    samples_per_gpu=128,  # bs128 x 8gpus
     workers_per_gpu=2,
-    val_dataloader=dict(samples_per_gpu=32),
-    test_dataloader=dict(samples_per_gpu=32),
+    val_dataloader=dict(samples_per_gpu=256),
+    test_dataloader=dict(samples_per_gpu=256),
     train=dict(
         type='TopDownCocoDataset',
         ann_file=f'{data_root}/annotations/person_keypoints_train2017.json',
@@ -165,3 +155,6 @@ data = dict(
         pipeline=test_pipeline,
         dataset_info={{_base_.dataset_info}}),
 )
+
+# fp16 settings
+fp16 = dict(loss_scale='dynamic')
