@@ -116,7 +116,9 @@ bash
 data
 data_set
 detection/data
+pose_estimation/data
 segmentation/data
+video_prediction/data
 output/
 work_dirs/
 workspace/
@@ -131,8 +133,3 @@ source.sh
 tensorboard.sh
 .DS_Store
 *.json
-
-# temp
-# detection
-# segmentation
-# video_prediction

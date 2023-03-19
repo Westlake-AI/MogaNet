@@ -23,7 +23,7 @@
 class="center">
 </p>
 
-We propose **MogaNet**, a new family of efficient ConvNets, to pursue informative context mining with preferable complexity-performance trade-offs.
+Within the modern ConvNet framework, we tailor the two feature mixers with conceptually simple yet effective depthwise convolutions to facilitate middle-order information across spatial and channel spaces respectively. We propose **MogaNet**, a new family of efficient ConvNets, to pursue informative context mining with preferable complexity-performance trade-offs, which shows excellent scalability and attains competitive results among state-of-the-art models with more efficient use of parameters on ImageNet and multifarious typical vision benchmarks, including COCO object detection, ADE20K semantic segmentation, 2D\&3D human pose estimation, and video prediction.
 
 <details>
   <summary>Table of Contents</summary>
@@ -38,13 +38,14 @@ We propose **MogaNet**, a new family of efficient ConvNets, to pursue informativ
 
 ## Catalog
 
-We plan to release implementations of MogaNet in a few months. Please watch us for the latest release. Currently, this repo is reimplemented according to our official implementations in [OpenMixup](https://github.com/Westlake-AI/openmixup/), and we are working on cleaning up experimental results and code implementations.
+We plan to release implementations of MogaNet in a few months. Please watch us for the latest release. Currently, this repo is reimplemented according to our official implementations in [OpenMixup](https://github.com/Westlake-AI/openmixup/), and we are working on cleaning up experimental results and code implementations. Models are released in [GitHub](https://github.com/Westlake-AI/MogaNet/releases) / [Baidu Cloud](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) / [Hugging Face](https://huggingface.co/MogaNet).
 
-- [x] **ImageNet-1K** Training and Validation Code [[here](#image-classification)] [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-in1k-weights)] [[Hugging Face 🤗](https://huggingface.co/MogaNet)]
+- [x] **ImageNet-1K** Training and Validation Code [[code](#image-classification)] [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-in1k-weights)] [[Hugging Face 🤗](https://huggingface.co/MogaNet)]
 - [x] Downstream Transfer to **Object Detection and Instance Segmentation on COCO** [[code](detection/)] [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-det-weights)]
 - [x] Downstream Transfer to **Semantic Segmentation on ADE20K** [[code](segmentation/)] [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-seg-weights)]
 - [x] Downstream Transfer to **2D Human Pose Estimation on COCO** [[code](pose_estimation/)] (baseline models are supported)
 - [ ] Downstream Transfer to **3D Human Pose Estimation** [[code](human_pose_3d/)] (baseline models will be supported)
+- [x] Downstream Transfer to **Video Prediction on MMNIST** [[code](video_prediction/)] (baseline models are supported)
 - [x] Image Classification on Google Colab and Notebook Demo [[here](demo.ipynb)]
 
 ## Image Classification
@@ -63,7 +64,7 @@ Here is a notebook [demo](demo.ipynb) of MogaNet which run the steps to perform 
 
 | Model | Resolution | Params (M) | Flops (G) | Top-1 / top-5 (%) | Script | Download |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|
-| MogaNet-XT | 224x224 | 2.97 | 0.80 | 76.5 / 93.4 | [args](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xtiny_sz224_8xbs128_ep300_args.yaml) \| [script](TRAINING.md) | [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xtiny_sz224_8xbs128_ep300.pth.tar) \| [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xtiny_sz224_8xbs128_ep300_summary.csv) |
+| MogaNet-XT | 224x224 | 2.97 | 0.80 | 76.5 \| 93.4 | [args](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xtiny_sz224_8xbs128_ep300_args.yaml) \| [script](TRAINING.md) | [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xtiny_sz224_8xbs128_ep300.pth.tar) \| [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xtiny_sz224_8xbs128_ep300_summary.csv) |
 | MogaNet-XT | 256x256 | 2.97 | 1.04 | 77.2 \| 93.8 | [args](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xtiny_sz256_8xbs128_ep300_args.yaml) \| [script](TRAINING.md) | [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xtiny_sz256_8xbs128_ep300.pth.tar) \| [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_xtiny_sz256_8xbs128_ep300_summary.csv) |
 | MogaNet-T | 224x224 | 5.20 | 1.10 | 79.0 \| 94.6 | [args](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz224_8xbs128_ep300_args.yaml) \| [script](TRAINING.md) | [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz224_8xbs128_ep300.pth.tar) \| [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz224_8xbs128_ep300_summary.csv) |
 | MogaNet-T | 256x256 | 5.20 | 1.44 | 79.6 \| 94.9 | [args](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz256_8xbs128_ep300_args.yaml) \| [script](TRAINING.md) | [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz256_8xbs128_ep300.pth.tar) \| [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-in1k-weights/moganet_tiny_sz256_8xbs128_ep300_summary.csv) |

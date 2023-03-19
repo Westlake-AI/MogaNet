@@ -46,6 +46,8 @@ We provide results of MogaNet and popular architectures (Swin, ConvNeXt, and Uni
 | MogaNet-B | 256x192 | 47.4M | 10.9G | 75.3 | 90.9 | 83.3 | 80.7 | 76.4 | 87.1 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_b_coco_256x192.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_b_coco_256x192.log.json) \| [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_b_coco_256x192.pth) |
 | MogaNet-B | 384x288 | 47.4M | 24.4G | 77.3 | 91.4 | 84.0 | 82.2 | 77.9 | 88.5 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/moganet_b_coco_384x288.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_b_coco_384x288.log.json) \| [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/moganet_b_coco_384x288.pth) |
 
+### MetaFormers + Top-Down
+
 | Backbone | Input Size | Params | FLOPs | AP | AP<sup>50</sup> | AP<sup>75</sup> | AR | AR<sup>M</sup> | AR<sup>L</sup> | Config | Download |
 |---|:---:|:---:|:---:|:---:|---|---|---|---|---|:---:|:---:|
 | Swin-T | 256x192 | 32.8M | 6.1G | 72.4 | 90.1 | 80.6 | 78.2 | 74.0 | 84.3 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/swin_t_p4_w7_coco_256x192.py) | [model](https://download.openmmlab.com/mmpose/top_down/swin/swin_t_p4_w7_coco_256x192-eaefe010_20220503.pth) \| [log](https://download.openmmlab.com/mmpose/top_down/swin/swin_t_p4_w7_coco_256x192_20220503.log.json) |

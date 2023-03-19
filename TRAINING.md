@@ -1,6 +1,6 @@
 # Training
 
-We provide ImageNet-1K training commands here. Please check [INSTALL.md](INSTALL.md) for installation instructions first.
+We provide ImageNet-1K training commands here. Please check [INSTALL.md](INSTALL.md) for installation instructions first. Please refer to [OpenMixup](https://github.com/Westlake-AI/openmixup/tree/main/configs/classification/imagenet/moganet) implementation for [RSB A3](https://arxiv.org/abs/2110.00476) and ImageNet-21K training.
 
 ## ImageNet-1K Training
 
