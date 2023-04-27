@@ -760,7 +760,7 @@ class MogaNet(nn.Module):
                 x = x.flatten(2).transpose(1, 2)
                 x = norm(x)
                 x = x.reshape(-1, *hw_shape,
-                            block.out_channels).permute(0, 3, 1, 2).contiguous()
+                              blocks.out_channels).permute(0, 3, 1, 2).contiguous()
             else:
                 x = norm(x)
             if self.fork_feat:

@@ -38,15 +38,17 @@ Within the modern ConvNet framework, we tailor the two feature mixers with conce
 
 ## Catalog
 
-We plan to release implementations of MogaNet in a few months. Please watch us for the latest release. Currently, this repo is reimplemented according to our official implementations in [OpenMixup](https://github.com/Westlake-AI/openmixup/), and we are working on cleaning up experimental results and code implementations. Models are released in [GitHub](https://github.com/Westlake-AI/MogaNet/releases) / [Baidu Cloud](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) / [Hugging Face](https://huggingface.co/MogaNet).
+We plan to release implementations of MogaNet in a few months. Please watch us for the latest release. Currently, this repo is reimplemented according to our official implementations in [OpenMixup](https://github.com/Westlake-AI/openmixup), and we are working on cleaning up experimental results and code implementations. Models are released in [GitHub](https://github.com/Westlake-AI/MogaNet/releases) / [Baidu Cloud](https://pan.baidu.com/s/1d5MTTC66gegehmfZvCQRUA?pwd=z8mf) / [Hugging Face](https://huggingface.co/MogaNet).
 
-- [x] **ImageNet-1K** Training and Validation Code [[code](#image-classification)] [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-in1k-weights)] [[Hugging Face 🤗](https://huggingface.co/MogaNet)]
+- [x] **ImageNet-1K** Training and Validation Code with [timm](https://github.com/rwightman/pytorch-image-models) [[code](#image-classification)] [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-in1k-weights)] [[Hugging Face 🤗](https://huggingface.co/MogaNet)]
+- [x] **ImageNet-1K** Training and Validation Code in [OpenMixup](https://github.com/Westlake-AI/openmixup/tree/main/configs/classification/imagenet/moganet) / [MMPretrain (TODO)](https://github.com/open-mmlab/mmpretrain)
 - [x] Downstream Transfer to **Object Detection and Instance Segmentation on COCO** [[code](detection/)] [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-det-weights)]
 - [x] Downstream Transfer to **Semantic Segmentation on ADE20K** [[code](segmentation/)] [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-seg-weights)]
 - [x] Downstream Transfer to **2D Human Pose Estimation on COCO** [[code](pose_estimation/)] (baseline models are supported)
-- [ ] Downstream Transfer to **3D Human Pose Estimation** [[code](human_pose_3d/)] (baseline models will be supported)
+ - [ ] Downstream Transfer to **3D Human Pose Estimation** (baseline models will be supported) <!--[[code](human_pose_3d/)] (baseline models will be supported) -->
 - [x] Downstream Transfer to **Video Prediction on MMNIST** [[code](video_prediction/)] (baseline models are supported)
 - [x] Image Classification on Google Colab and Notebook Demo [[here](demo.ipynb)]
+
 
 ## Image Classification
 
@@ -102,12 +104,14 @@ This project is released under the [Apache 2.0 license](LICENSE).
 
 Our implementation is mainly based on the following codebases. We gratefully thank the authors for their wonderful works.
 
-- [pytorch-image-models](https://github.com/rwightman/pytorch-image-models).
+- [pytorch-image-models (timm)](https://github.com/rwightman/pytorch-image-models): PyTorch image models, scripts, pretrained weights.
 - [PoolFormer](https://github.com/sail-sg/poolformer): Official PyTorch implementation of MetaFormer.
 - [ConvNeXt](https://github.com/facebookresearch/ConvNeXt): Official PyTorch implementation of ConvNeXt.
+- [OpenMixup](https://github.com/Westlake-AI/openmixup): Open-source toolbox for visual representation learning.
 - [MMDetection](https://github.com/open-mmlab/mmdetection): OpenMMLab Detection Toolbox and Benchmark.
 - [MMSegmentation](https://github.com/open-mmlab/mmsegmentation): OpenMMLab Semantic Segmentation Toolbox and Benchmark.
 - [MMPose](https://github.com/open-mmlab/mmpose): OpenMMLab Pose Estimation Toolbox and Benchmark.
+- [MMHuman3D](https://github.com/open-mmlab/mmhuman3d): OpenMMLab 3D Human Parametric Model Toolbox and Benchmark.
 
 ## Citation
 

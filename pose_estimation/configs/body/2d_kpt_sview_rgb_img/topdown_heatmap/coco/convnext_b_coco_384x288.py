@@ -6,9 +6,17 @@ evaluation = dict(interval=10, metric='mAP', save_best='AP')
 checkpoint_config = dict(max_keep_ckpts=1)
 
 optimizer = dict(
-    type='Adam',
+    type='AdamW',
     lr=5e-4,
-)
+    betas=(0.9, 0.999),
+    weight_decay=0.01,
+    paramwise_cfg=dict(
+        custom_keys={
+            'absolute_pos_embed': dict(decay_mult=0.),
+            'relative_position_bias_table': dict(decay_mult=0.),
+            'norm': dict(decay_mult=0.)
+        }))
+
 optimizer_config = dict(grad_clip=None)
 # learning policy
 lr_config = dict(
@@ -39,7 +47,7 @@ model = dict(
         type='ConvNeXt',
         arch='base',
         out_indices=(0, 1, 2, 3),
-        drop_path_rate=0.6,
+        drop_path_rate=0.7,
         layer_scale_init_value=1.0,
         gap_before_final_norm=False,
     ),
@@ -122,7 +130,7 @@ test_pipeline = val_pipeline
 
 data_root = 'data/coco'
 data = dict(
-    samples_per_gpu=32,
+    samples_per_gpu=64,
     workers_per_gpu=4,
     val_dataloader=dict(samples_per_gpu=32),
     test_dataloader=dict(samples_per_gpu=32),
