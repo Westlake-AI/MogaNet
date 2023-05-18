@@ -71,6 +71,14 @@ python get_flops.py /path/to/config --shape 1280 800
 | Mask R-CNN | MogaNet-B | ImageNet-1K | 63.4M | 373.1G | 1x | 49.0 | 43.8 | [config](configs/mask_rcnn_moganet_base_fpn_1x_coco.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/mask_rcnn_moganet_base_fpn_1x_coco.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/mask_rcnn_moganet_base_fpn_1x_coco.pth) |
 | Mask R-CNN | MogaNet-L | ImageNet-1K | 102.1M | 495.3G | 1x | 49.4 | 44.2 | [config](configs/mask_rcnn_moganet_large_fpn_1x_coco.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/mask_rcnn_moganet_large_fpn_1x_coco.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-det-weights/mask_rcnn_moganet_large_fpn_1x_coco.pth) |
 
+## Demo
+
+We provide some demos according to [MMDetection](https://github.com/open-mmlab/mmdetection/demo). Please use [inference_demo](./demo/inference_demo.ipynb) or run the following script:
+```bash
+cd demo
+python image_demo.py demo.png ../configs/moganet/mask_rcnn_moganet_small_fpn_1x_coco.py ../../work_dirs/checkpoints/mask_rcnn_moganet_small_fpn_1x_coco.pth --out-file pred.png
+```
+
 ## Training
 
 We train the model on a single node with 8 GPUs (a batch size of 16) by default. Start training with the config as:

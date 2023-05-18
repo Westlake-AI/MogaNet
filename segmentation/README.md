@@ -51,6 +51,14 @@ python get_flops.py /path/to/config --shape 2048 512
 | UperNet | MogaNet-B | ImageNet-1K | 73.7M | 1050.4G | 160K | 50.1 | 63.4 | [config](configs/upernet/moganet/upernet_moganet_base_512x512_160k_ade20k.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/upernet_moganet_base_512x512_160k_ade20k.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/upernet_moganet_base_512x512_160k_ade20k.pth) |
 | UperNet | MogaNet-L | ImageNet-1K | 113.2M | 1176.1G | 160K | 50.9 | 63.5 | [config](configs/upernet/moganet/upernet_moganet_large_512x512_160k_ade20k.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/upernet_moganet_large_512x512_160k_ade20k.log.json) / [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-seg-weights/upernet_moganet_large_512x512_160k_ade20k.pth) |
 
+## Demo
+
+We provide some demos according to [MMSegmentation](https://github.com/open-mmlab/mmsegmentation/demo). Please use [inference_demo](./demo/inference_demo.ipynb) or run the following script:
+```bash
+cd demo
+python image_demo.py ADE_val_00000001.png ../configs/upernet/moganet/upernet_moganet_small_512x512_160k_ade20k.py ../work_dirs/checkpoints/upernet_moganet_small_512x512_160k_ade20k.pth --out-file pred.png
+```
+
 ## Training
 
 We train the model on a single node with 8 GPUs by default (a batch size of 32 / 16 for Semantic FPN / UperNet). Start training with the config as:

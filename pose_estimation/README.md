@@ -66,6 +66,14 @@ We provide results of MogaNet and popular architectures (Swin, ConvNeXt, and Uni
 | UniFormer-B | 256x192 | 53.5M | 9.2G | 75.0 | 90.6 | 83.0 | 80.4 | 67.8 | 77.7 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/uniformer_b_coco_256x192.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/uniformer_b_coco_256x192.log.json) \| [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/uniformer_b_coco_256x192.pth) |
 | UniFormer-B | 384x288 | 53.5M | 14.8G | 76.7 | 90.8 | 84.0 | 81.4 | 69.3 | 79.7 | [config](https://github.com/Westlake-AI/MogaNet/tree/main/pose_estimation/configs/body/2d_kpt_sview_rgb_img/topdown_heatmap/coco/uniformer_b_coco_384x288.py) | [log](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/uniformer_b_coco_384x288.log.json) \| [model](https://github.com/Westlake-AI/MogaNet/releases/download/moganet-pose-weights/uniformer_b_coco_384x288.pth) |
 
+## Demo
+
+We provide some demos according to [MMPose](https://github.com/open-mmlab/mmpose/demo). Please use [inference_demo](./demo/inference_demo.ipynb) or run the python tools with following script:
+```bash
+cd demo
+python top_down_img_demo.py path/to/config path/to/checkpoint --img-root coco2017_val --json-file ../data/coco/annotations/person_keypoints_val2017.json --show
+```
+
 ## Training
 
 We train the model on a single node with 8 GPUs by default (a batch size of 32 $\times$ 8 for Top-Down). Start training with the config as:
