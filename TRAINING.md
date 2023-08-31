@@ -234,3 +234,25 @@ python validate.py \
 --checkpoint /path/to/checkpoint.tar.gz
 ```
 </details>
+
+
+## ImageNet-1K Results
+
+We provide comperhansive ImageNet-1K performances of all parameter scales with the modern training setting (i.e., DeiT) in our latest arXiv version.
+
+<p align="center">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/44519745/264760151-bd568286-e9ca-4346-b6e5-cf6d0b4aa20a.png" width=65% 
+class="center">
+</p>
+
+<p align="center">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/44519745/264760614-c9e5a369-1fdf-40c4-b496-a974826c0af9.png" width=65%
+class="center">
+</p>
+
+We also provide comperhansive results of popular network architectures using RSB-A3 training settings.
+
+<p align="center">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/44519745/264761201-7d9d97a6-480a-43de-9b6c-0e6d6eb93d95.png" width=80%
+class="center">
+</p>

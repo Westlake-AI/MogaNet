@@ -44,9 +44,9 @@ We plan to release implementations of MogaNet in a few months. Please watch us f
 - [x] **ImageNet-1K** Training and Validation Code in [OpenMixup](https://github.com/Westlake-AI/openmixup/tree/main/configs/classification/imagenet/moganet) / [MMPretrain (TODO)](https://github.com/open-mmlab/mmpretrain)
 - [x] Downstream Transfer to **Object Detection and Instance Segmentation on COCO** [[code](detection/)] [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-det-weights)] [[demo](detection/demo/)]
 - [x] Downstream Transfer to **Semantic Segmentation on ADE20K** [[code](segmentation/)] [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-seg-weights)] [[demo](segmentation/demo/)]
-- [x] Downstream Transfer to **2D Human Pose Estimation on COCO** [[code](pose_estimation/)] (baseline models are supported) [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-pose-weights)] [[demo](pose_estimation/demo/)]
+- [x] Downstream Transfer to **2D Human Pose Estimation on COCO** [[code](pose_estimation/)] (baselines supported) [[models](https://github.com/Westlake-AI/MogaNet/releases/tag/moganet-pose-weights)] [[demo](pose_estimation/demo/)]
  - [ ] Downstream Transfer to **3D Human Pose Estimation** (baseline models will be supported) <!--[[code](human_pose_3d/)] (baseline models will be supported) -->
-- [x] Downstream Transfer to **Video Prediction on MMNIST** [[code](video_prediction/)] (baseline models are supported)
+- [x] Downstream Transfer to **Video Prediction on MMNIST** [[code](video_prediction/)] (baselines supported)
 - [x] Image Classification on Google Colab and Notebook Demo [[demo](demo.ipynb)]
 
 <p align="center">
