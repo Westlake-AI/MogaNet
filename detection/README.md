@@ -1,7 +1,7 @@
 # Applying MogaNet to Object Detection
 
 This repo is a PyTorch implementation of applying **MogaNet** to object detaction and instance segmentation with [Mask R-CNN](https://arxiv.org/abs/1703.06870) and [RetinaNet](https://arxiv.org/abs/1708.02002) on [COCO](https://arxiv.org/abs/1405.0312). The code is based on [MMDetection](https://github.com/open-mmlab/mmdetection/tree/v2.26.0).
-For more details, see [Efficient Multi-order Gated Aggregation Network](https://arxiv.org/abs/2211.03295) (arXiv 2022).
+For more details, see [Efficient Multi-order Gated Aggregation Network](https://arxiv.org/abs/2211.03295) (ICLR 2024).
 
 ## Note
 
@@ -97,12 +97,11 @@ bash dist_test.sh /path/to/config /path/to/checkpoint 8 --out results.pkl --eval
 
 If you find this repository helpful, please consider citing:
 ```
-@article{Li2022MogaNet,
+@inproceedings{iclr2024MogaNet,
   title={Efficient Multi-order Gated Aggregation Network},
   author={Siyuan Li and Zedong Wang and Zicheng Liu and Cheng Tan and Haitao Lin and Di Wu and Zhiyuan Chen and Jiangbin Zheng and Stan Z. Li},
-  journal={ArXiv},
-  year={2022},
-  volume={abs/2211.03295}
+  booktitle={International Conference on Learning Representations},
+  year={2024}
 }
 ```
 

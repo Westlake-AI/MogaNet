@@ -1,7 +1,7 @@
 # Applying MogaNet to Pose Estimation
 
 This repo is a PyTorch implementation of applying **MogaNet** to 2D human pose estimation on COCO. The code is based on [MMPose](https://github.com/open-mmlab/mmpose/tree/v0.29.0).
-For more details, see [Efficient Multi-order Gated Aggregation Network](https://arxiv.org/abs/2211.03295) (arXiv 2022).
+For more details, see [Efficient Multi-order Gated Aggregation Network](https://arxiv.org/abs/2211.03295) (ICLR 2024).
 
 ## Note
 
@@ -92,12 +92,11 @@ bash dist_test.sh /path/to/config /path/to/checkpoint 8 --out results.pkl --eval
 
 If you find this repository helpful, please consider citing:
 ```
-@article{Li2022MogaNet,
+@inproceedings{iclr2024MogaNet,
   title={Efficient Multi-order Gated Aggregation Network},
   author={Siyuan Li and Zedong Wang and Zicheng Liu and Cheng Tan and Haitao Lin and Di Wu and Zhiyuan Chen and Jiangbin Zheng and Stan Z. Li},
-  journal={ArXiv},
-  year={2022},
-  volume={abs/2211.03295}
+  booktitle={International Conference on Learning Representations},
+  year={2024}
 }
 ```
 
