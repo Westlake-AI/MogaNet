@@ -1,8 +1,8 @@
 <div align="center">
 <!-- <h1>MogaNet: Efficient Multi-order Gated Aggregation Network</h1> -->
-<h2><a href="https://arxiv.org/abs/2211.03295">Efficient Multi-order Gated Aggregation Network</a></h2>
+<h2><a href="https://arxiv.org/abs/2211.03295">MogaNet: Multi-order Gated Aggregation Network (ICLR 2024)</a></h2>
 
-[Siyuan Li](https://lupin1998.github.io/)<sup>\*,1,2</sup>, [Zedong Wang](https://zedongwang.netlify.app/)<sup>\*,1</sup>, [Zicheng Liu](https://pone7.github.io/)<sup>1,2</sup>, [Chen Tan](https://chengtan9907.github.io/)<sup>1,2</sup>, [Haitao Lin](https://bird-tao.github.io/)<sup>1,2</sup>, [Di Wu](https://scholar.google.com/citations?user=egz8bGQAAAAJ&hl=zh-CN)<sup>1,2</sup>, [Zhiyuan Chen](https://zyc.ai/)<sup>1</sup>, [Jiangbin Zheng](https://scholar.google.com/citations?user=egz8bGQAAAAJ&hl=zh-CN)<sup>1,2</sup>, [Stan Z. Li](https://scholar.google.com/citations?user=Y-nyLGIAAAAJ&hl=zh-CN)<sup>†,1</sup>
+[Siyuan Li](https://lupin1998.github.io/)<sup>\*,1,2</sup>, [Zedong Wang](https://jacky1128.github.io)<sup>\*,1</sup>, [Zicheng Liu](https://pone7.github.io/)<sup>1,2</sup>, [Chen Tan](https://chengtan9907.github.io/)<sup>1,2</sup>, [Haitao Lin](https://bird-tao.github.io/)<sup>1,2</sup>, [Di Wu](https://scholar.google.com/citations?user=egz8bGQAAAAJ&hl=zh-CN)<sup>1,2</sup>, [Zhiyuan Chen](https://zyc.ai/)<sup>1</sup>, [Jiangbin Zheng](https://scholar.google.com/citations?user=egz8bGQAAAAJ&hl=zh-CN)<sup>1,2</sup>, [Stan Z. Li](https://scholar.google.com/citations?user=Y-nyLGIAAAAJ&hl=zh-CN)<sup>†,1</sup>
 
 <sup>1</sup>[Westlake University](https://westlake.edu.cn/), <sup>2</sup>[Zhejiang University](https://www.zju.edu.cn/english/)
 </div>
@@ -23,7 +23,9 @@
 class="center">
 </p>
 
-Within the modern ConvNet framework, we tailor the two feature mixers with conceptually simple yet effective depthwise convolutions to facilitate middle-order information across spatial and channel spaces respectively. We propose **MogaNet**, a new family of efficient ConvNets, to pursue informative context mining with preferable complexity-performance trade-offs, which shows excellent scalability and attains competitive results among state-of-the-art models with more efficient use of parameters on ImageNet and multifarious typical vision benchmarks, including COCO object detection, ADE20K semantic segmentation, 2D\&3D human pose estimation, and video prediction.
+We propose **MogaNet**, a new family of efficient ConvNets designed through the lens of multi-order game-theoretic interaction, to pursue informative context mining with preferable complexity-performance trade-offs. It shows excellent scalability and attains competitive results among state-of-the-art models with more efficient use of model parameters on ImageNet and multifarious typical vision benchmarks, including COCO object detection, ADE20K semantic segmentation, 2D\&3D human pose estimation, and video prediction.
+
+This repository contains PyTorch implementation for MogaNet (ICLR 2024).
 
 <details>
   <summary>Table of Contents</summary>
@@ -246,7 +248,7 @@ Our implementation is mainly based on the following codebases. We gratefully tha
 If you find this repository helpful, please consider citing:
 ```
 @inproceedings{iclr2024MogaNet,
-  title={Efficient Multi-order Gated Aggregation Network},
+  title={MogaNet: Multi-order Gated Aggregation Network},
   author={Siyuan Li and Zedong Wang and Zicheng Liu and Cheng Tan and Haitao Lin and Di Wu and Zhiyuan Chen and Jiangbin Zheng and Stan Z. Li},
   booktitle={International Conference on Learning Representations},
   year={2024}
